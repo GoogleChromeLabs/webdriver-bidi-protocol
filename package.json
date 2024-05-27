@@ -1,0 +1,17 @@
+{
+  "name": "webdriver-bidi-protocol",
+  "version": "0.0.1",
+  "description": "",
+  "main": "out/index.js",
+  "types": "out/index.d.ts",
+  "keywords": ["webdriver", "bidi", "protocol"],
+  "author": "The Chromium Authors",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "parse5": "^7.1.2",
+    "prettier": "3.2.5",
+    "tsd": "0.31.0",
+    "typescript": "5.4.5"
+  }
+}
