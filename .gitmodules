@@ -1,0 +1,6 @@
+[submodule "specs/webdriver-bidi"]
+	path = specs/webdriver-bidi
+	url = https://github.com/w3c/webdriver-bidi.git
+[submodule "specs/permissions"]
+	path = specs/permissions
+	url = https://github.com/w3c/permissions.git

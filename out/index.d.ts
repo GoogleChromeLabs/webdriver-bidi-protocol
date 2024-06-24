@@ -3,17 +3,12 @@
  * Copyright 2024 Google Inc.
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import * as Bidi from './gen/main.js';
 import * as BidiPermissions from './gen/permissions.js';
-
 export * from './gen/main.js';
 export * from './gen/permissions.js';
-
 export type Command = Bidi.Command | BidiPermissions.Permissions.SetPermission;
 export type Event = Bidi.Event;
-
-// TODO: is there a way to generate this mapping?
 export interface Commands {
   'script.evaluate': {
     params: Bidi.Script.EvaluateParameters;
@@ -35,12 +30,10 @@ export interface Commands {
     params: Bidi.Script.RemovePreloadScriptParameters;
     returnType: Bidi.EmptyResult;
   };
-
   'browser.close': {
     params: Bidi.EmptyParams;
     returnType: Bidi.EmptyResult;
   };
-
   'browser.createUserContext': {
     params: Bidi.EmptyParams;
     returnType: Bidi.Browser.CreateUserContextResult;
@@ -55,7 +48,6 @@ export interface Commands {
     };
     returnType: Bidi.Browser.RemoveUserContext;
   };
-
   'browsingContext.activate': {
     params: Bidi.BrowsingContext.ActivateParameters;
     returnType: Bidi.EmptyResult;
@@ -104,7 +96,6 @@ export interface Commands {
     params: Bidi.BrowsingContext.TraverseHistoryParameters;
     returnType: Bidi.EmptyResult;
   };
-
   'input.performActions': {
     params: Bidi.Input.PerformActionsParameters;
     returnType: Bidi.EmptyResult;
@@ -117,12 +108,10 @@ export interface Commands {
     params: Bidi.Input.SetFilesParameters;
     returnType: Bidi.EmptyResult;
   };
-
   'permissions.setPermission': {
     params: BidiPermissions.Permissions.SetPermissionParameters;
     returnType: Bidi.EmptyResult;
   };
-
   'session.end': {
     params: Bidi.EmptyParams;
     returnType: Bidi.EmptyResult;
@@ -143,7 +132,6 @@ export interface Commands {
     params: Bidi.Session.SubscriptionRequest;
     returnType: Bidi.EmptyResult;
   };
-
   'storage.deleteCookies': {
     params: Bidi.Storage.DeleteCookiesParameters;
     returnType: Bidi.Storage.DeleteCookiesResult;
@@ -156,7 +144,6 @@ export interface Commands {
     params: Bidi.Storage.SetCookieParameters;
     returnType: Bidi.Storage.SetCookieParameters;
   };
-
   'network.addIntercept': {
     params: Bidi.Network.AddInterceptParameters;
     returnType: Bidi.Network.AddInterceptResult;
