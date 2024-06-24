@@ -41,5 +41,6 @@ handleEvent({
     context: "",
     url: "",
     userContext: "",
+    originalOpener: null,
   },
 });
