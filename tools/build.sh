@@ -15,6 +15,9 @@ git submodule update --init
 cddlconv specs/webdriver-bidi/all.cddl > src/gen/main.ts
 cddlconv specs/permissions/all.cddl > src/gen/permissions.ts
 
+(cd specs/webdriver-bidi && git reset --hard HEAD && git clean -fd)
+(cd specs/permissions && git reset --hard HEAD && git clean -fd)
+
 npx tsc -p tsconfig.json
 npx tsd
 npm run format
