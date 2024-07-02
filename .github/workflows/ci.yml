@@ -24,24 +24,15 @@ jobs:
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 2
+          ref: ${{ github.head_ref }}
       - name: Install cddlconv
         run: cargo install cddlconv@0.1.5
       - name: Install dependencies
         run: npm ci
       - name: Build and test
         run: npm test
-      - id: check_changes
-        run: |
-          git status
-          if [[ -n $(git status --porcelain) ]]; then
-              echo "changes=true" >> "$GITHUB_OUTPUT"; 
-          fi
       - name: Commit and push changes
-        if: contains(github.event.pull_request.labels.*.name, 'commit-updates') && steps.check_changes.outputs.changes == 'true'
-        run: |
-          git status
-          git config --global user.name 'browser-automation-bot'
-          git config --global user.email '133232582+browser-automation-bot@users.noreply.github.com'
-          git add . --all
-          git commit -m 'chore: commit updated files' --no-verify
-          git push
+        if: contains(github.event.pull_request.labels.*.name, 'commit-updates')
+        uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 # 5.0.1
+        with:
+          token: ${{ secrets.BROWSER_AUTOMATION_BOT_TOKEN }}
