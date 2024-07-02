@@ -18,6 +18,8 @@ cddlconv specs/permissions/all.cddl > src/gen/permissions.ts
 (cd specs/webdriver-bidi && git reset --hard HEAD && git clean -fd)
 (cd specs/permissions && git reset --hard HEAD && git clean -fd)
 
+git submodule deinit --all
+
 npx tsc -p tsconfig.json
 npx tsd
 npm run format

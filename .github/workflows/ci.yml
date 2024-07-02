@@ -32,15 +32,13 @@ jobs:
         run: npm test
       - id: check_changes
         run: |
+          git status
           if [[ -n $(git status --porcelain) ]]; then
               echo "changes=true" >> "$GITHUB_OUTPUT"; 
           fi
       - name: Commit and push changes
         if: contains(github.event.pull_request.labels.*.name, 'commit-updates') && steps.check_changes.outputs.changes == 'true'
         run: |
-          git status
-          git submodule deinit --all
-          echo "After submodule deinit"
           git status
           git config --global user.name 'browser-automation-bot'
           git config --global user.email '133232582+browser-automation-bot@users.noreply.github.com'
