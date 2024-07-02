@@ -25,6 +25,7 @@ jobs:
         with:
           fetch-depth: 2
           ref: ${{ github.head_ref }}
+          token: ${{ secrets.BROWSER_AUTOMATION_BOT_TOKEN }}
       - name: Install cddlconv
         run: cargo install cddlconv@0.1.5
       - name: Install dependencies
@@ -35,7 +36,6 @@ jobs:
         if: contains(github.event.pull_request.labels.*.name, 'commit-updates')
         uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 # 5.0.1
         with:
-          token: ${{ secrets.BROWSER_AUTOMATION_BOT_TOKEN }}
           commit_message: "fix: generate files"
           commit_options: -n --signoff
           commit_user_name: Browser Automation Bot
