@@ -39,7 +39,7 @@ jobs:
         if: contains(github.event.pull_request.labels.*.name, 'commit-updates') && steps.check_changes.outputs.changes == 'true'
         run: |
           git status
-          git submodule deinit
+          git submodule deinit --all
           echo "After submodule deinit"
           git status
           git config --global user.name 'browser-automation-bot'
