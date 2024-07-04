@@ -797,7 +797,8 @@ export type NetworkCommand =
   | Network.ContinueWithAuth
   | Network.FailRequest
   | Network.ProvideResponse
-  | Network.RemoveIntercept;
+  | Network.RemoveIntercept
+  | Network.SetCacheBehavior;
 export type NetworkEvent =
   | Network.AuthRequired
   | Network.BeforeRequestSent
@@ -1094,6 +1095,21 @@ export namespace Network {
 export namespace Network {
   export type RemoveInterceptParameters = {
     intercept: Network.Intercept;
+  };
+}
+export namespace Network {
+  export type SetCacheBehavior = {
+    method: 'network.setCacheBehavior';
+    params: Network.SetCacheBehaviorParameters;
+  };
+}
+export namespace Network {
+  export type SetCacheBehaviorParameters = {
+    cacheBehavior: 'default' | 'bypass';
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
   };
 }
 export type ScriptEvent =
