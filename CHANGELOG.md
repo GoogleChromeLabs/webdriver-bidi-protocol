@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.8](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.0.7...webdriver-bidi-protocol-v0.0.8) (2024-07-10)
+
+
+### Bug Fixes
+
+* bump specs/webdriver-bidi from `a46d71b` to `0fa2d99` ([#33](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/33)) ([596a0ab](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/596a0ab776e061bccbc67a4fc38db4d5cce84643))
+
 ## [0.0.7](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.0.6...webdriver-bidi-protocol-v0.0.7) (2024-07-04)
 
 
