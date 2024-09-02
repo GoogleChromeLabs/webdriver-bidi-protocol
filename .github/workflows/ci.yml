@@ -25,22 +25,9 @@ jobs:
         with:
           fetch-depth: 2
           ref: ${{ github.head_ref }}
-          token: ${{ secrets.BROWSER_AUTOMATION_BOT_TOKEN }}
       - name: Install cddlconv
-        uses: baptiste0928/cargo-install@904927dbe77864e0f2281519fe9d5bd097a220b3 # v3.1.1
-        with:
-          crate: cddlconv
-          version: 0.1.5
+        run: cargo install cddlconv@0.1.5
       - name: Install dependencies
         run: npm ci
       - name: Build and test
         run: npm test
-      - name: Commit and push changes
-        if: contains(github.event.pull_request.labels.*.name, 'commit-updates')
-        uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 # 5.0.1
-        with:
-          commit_message: "fix: generate files"
-          commit_options: -n --signoff
-          commit_user_name: Browser Automation Bot
-          commit_user_email: browser-automation-bot@google.com
-          commit_author: Browser Automation Bot <browser-automation-bot@google.com>
