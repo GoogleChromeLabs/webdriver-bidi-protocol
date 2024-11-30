@@ -37,3 +37,4 @@ var __exportStar =
 Object.defineProperty(exports, '__esModule', {value: true});
 __exportStar(require('./gen/main.js'), exports);
 __exportStar(require('./gen/permissions.js'), exports);
+__exportStar(require('./gen/web-bluetooth.js'), exports);

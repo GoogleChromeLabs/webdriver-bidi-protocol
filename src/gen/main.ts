@@ -58,6 +58,7 @@ export const enum ErrorCode {
   InvalidArgument = 'invalid argument',
   InvalidSelector = 'invalid selector',
   InvalidSessionId = 'invalid session id',
+  InvalidWebExtension = 'invalid web extension',
   MoveTargetOutOfBounds = 'move target out of bounds',
   NoSuchAlert = 'no such alert',
   NoSuchElement = 'no such element',
@@ -70,6 +71,7 @@ export const enum ErrorCode {
   NoSuchScript = 'no such script',
   NoSuchStoragePartition = 'no such storage partition',
   NoSuchUserContext = 'no such user context',
+  NoSuchWebExtension = 'no such web extension',
   SessionNotCreated = 'session not created',
   UnableToCaptureScreen = 'unable to capture screen',
   UnableToCloseBrowser = 'unable to close browser',
@@ -237,11 +239,28 @@ export namespace Session {
 export type BrowserCommand =
   | Browser.Close
   | Browser.CreateUserContext
+  | Browser.GetClientWindows
   | Browser.GetUserContexts
-  | Browser.RemoveUserContext;
+  | Browser.RemoveUserContext
+  | Browser.SetClientWindowState
+  | Record<string, never>;
 export type BrowserResult =
   | Browser.CreateUserContextResult
   | Browser.GetUserContextsResult;
+export namespace Browser {
+  export type ClientWindow = string;
+}
+export namespace Browser {
+  export type ClientWindowInfo = {
+    active: boolean;
+    clientWindow: Browser.ClientWindow;
+    height: JsUint;
+    state: 'fullscreen' | 'maximized' | 'minimized' | 'normal';
+    width: JsUint;
+    x: JsInt;
+    y: JsInt;
+  };
+}
 export namespace Browser {
   export type UserContext = string;
 }
@@ -266,6 +285,17 @@ export namespace Browser {
   export type CreateUserContextResult = Browser.UserContextInfo;
 }
 export namespace Browser {
+  export type GetClientWindows = {
+    method: 'browser.getClientWindows';
+    params: EmptyParams;
+  };
+}
+export namespace Browser {
+  export type GetClientWindowsResult = {
+    clientWindows: [...Browser.ClientWindowInfo[]];
+  };
+}
+export namespace Browser {
   export type GetUserContexts = {
     method: 'browser.getUserContexts';
     params: EmptyParams;
@@ -287,6 +317,33 @@ export namespace Browser {
     userContext: Browser.UserContext;
   };
 }
+export namespace Browser {
+  export type SetClientWindowState = {
+    method: 'browser.setClientWindowState';
+    params: Browser.SetClientWindowStateParameters;
+  };
+}
+export namespace Browser {
+  export type SetClientWindowStateParameters =
+    | ({
+        clientWindow: Browser.ClientWindow;
+      } & Browser.ClientWindowNamedState)
+    | Browser.ClientWindowRectState;
+}
+export namespace Browser {
+  export type ClientWindowNamedState = {
+    state: 'fullscreen' | 'maximized' | 'minimized';
+  };
+}
+export namespace Browser {
+  export type ClientWindowRectState = {
+    state: 'normal';
+    width?: JsUint;
+    height?: JsUint;
+    x?: JsInt;
+    y?: JsInt;
+  };
+}
 export type BrowsingContextCommand =
   | BrowsingContext.Activate
   | BrowsingContext.CaptureScreenshot
@@ -306,6 +363,7 @@ export type BrowsingContextEvent =
   | BrowsingContext.DomContentLoaded
   | BrowsingContext.DownloadWillBegin
   | BrowsingContext.FragmentNavigated
+  | BrowsingContext.HistoryUpdated
   | BrowsingContext.Load
   | BrowsingContext.NavigationAborted
   | BrowsingContext.NavigationFailed
@@ -329,6 +387,7 @@ export namespace BrowsingContext {
 export namespace BrowsingContext {
   export type Info = {
     children: BrowsingContext.InfoList | null;
+    clientWindow: Browser.ClientWindow;
     context: BrowsingContext.BrowsingContext;
     originalOpener: BrowsingContext.BrowsingContext | null;
     url: string;
@@ -732,6 +791,18 @@ export namespace BrowsingContext {
   };
 }
 export namespace BrowsingContext {
+  export type HistoryUpdated = {
+    method: 'browsingContext.historyUpdated';
+    params: BrowsingContext.HistoryUpdatedParameters;
+  };
+}
+export namespace BrowsingContext {
+  export type HistoryUpdatedParameters = {
+    context: BrowsingContext.BrowsingContext;
+    url: string;
+  };
+}
+export namespace BrowsingContext {
   export type DomContentLoaded = {
     method: 'browsingContext.domContentLoaded';
     params: BrowsingContext.NavigationInfo;
@@ -896,11 +967,11 @@ export namespace Network {
 }
 export namespace Network {
   export type Initiator = {
-    type: 'parser' | 'script' | 'preflight' | 'other';
     columnNumber?: JsUint;
     lineNumber?: JsUint;
-    stackTrace?: Script.StackTrace;
     request?: Network.Request;
+    stackTrace?: Script.StackTrace;
+    type?: 'parser' | 'script' | 'preflight' | 'other';
   };
 }
 export namespace Network {
@@ -918,6 +989,8 @@ export namespace Network {
     cookies: [...Network.Cookie[]];
     headersSize: JsUint;
     bodySize: JsUint | null;
+    destination: string;
+    initiatorType: string | null;
     timings: Network.FetchTimingInfo;
   };
 }
@@ -1123,7 +1196,7 @@ export namespace Network {
 }
 export namespace Network {
   export type BeforeRequestSentParameters = Network.BaseParameters & {
-    initiator: Network.Initiator;
+    initiator?: Network.Initiator;
   };
 }
 export namespace Network {
@@ -2187,5 +2260,62 @@ export namespace Input {
     context: BrowsingContext.BrowsingContext;
     element: Script.SharedReference;
     files: [...string[]];
+  };
+}
+export type WebExtensionsCommand = WebExtension.Install &
+  WebExtension.Uninstall;
+export type WebExtensionsResult = WebExtension.InstallResult;
+export namespace WebExtension {
+  export type Extension = string;
+}
+export namespace WebExtension {
+  export type InstallParameters = {
+    extensionData: WebExtension.ExtensionData;
+  };
+}
+export namespace WebExtension {
+  export type Install = {
+    method: 'webExtension.install';
+    params: WebExtension.InstallParameters;
+  };
+}
+export namespace WebExtension {
+  export type ExtensionData =
+    | WebExtension.ExtensionArchivePath
+    | WebExtension.ExtensionBase64Encoded
+    | WebExtension.ExtensionPath;
+}
+export namespace WebExtension {
+  export type ExtensionPath = {
+    type: 'path';
+    path: string;
+  };
+}
+export namespace WebExtension {
+  export type ExtensionArchivePath = {
+    type: 'archivePath';
+    path: string;
+  };
+}
+export namespace WebExtension {
+  export type ExtensionBase64Encoded = {
+    type: 'base64';
+    value: string;
+  };
+}
+export namespace WebExtension {
+  export type InstallResult = {
+    extension: WebExtension.Extension;
+  };
+}
+export namespace WebExtension {
+  export type Uninstall = {
+    method: 'webExtension.uninstall';
+    params: WebExtension.UninstallParameters;
+  };
+}
+export namespace WebExtension {
+  export type UninstallParameters = {
+    extension: WebExtension.Extension;
   };
 }
