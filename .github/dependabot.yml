@@ -31,6 +31,7 @@ updates:
     directory: /
     commit-message:
       # Prefix with 'fix' to generate patch releases.
+      # dummy update.
       prefix: fix
     schedule:
       interval: daily
