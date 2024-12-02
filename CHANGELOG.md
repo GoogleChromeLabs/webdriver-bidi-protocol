@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.1.0](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.0.9...webdriver-bidi-protocol-v0.1.0) (2024-12-02)
+
+
+### Features
+
+* add bluetooth ([#66](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/66)) ([e42e8d9](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/e42e8d9896540020955d81b08066bdf92ed16602))
+
+
+### Bug Fixes
+
+* add repository ([#19](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/19)) ([91def9d](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/91def9dd0baeab3476e7154676e40d5a709da2c3))
+* another repository fix ([72c215c](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/72c215cbcf76c97317deff925d1ff73732ed5bab))
+* bump specs/webdriver-bidi from `0575bf7` to `9eaa877` ([#65](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/65)) ([d0ed8ef](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/d0ed8ef0254fb7786b5e2cd7b716aa772cc49fcd))
+* bump specs/webdriver-bidi from `05a283e` to `62b8dfe` ([#16](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/16)) ([51dac71](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/51dac71ca4ea2e4e85eee7ba82a6a8ac7ff584a4))
+* bump specs/webdriver-bidi from `0c366b0` to `a46d71b` ([#30](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/30)) ([c926381](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/c92638156ca8cbe36e2485fde2c3eca4b6d14cd7))
+* bump specs/webdriver-bidi from `0fa2d99` to `712c17f` ([#36](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/36)) ([5e35acb](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/5e35acb0af5663fdace139da9648a298adf4b863))
+* bump specs/webdriver-bidi from `287e9c6` to `0575bf7` ([#59](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/59)) ([20ec66a](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/20ec66ae46acdb49211991f603826bfbab0c0762))
+* bump specs/webdriver-bidi from `62b8dfe` to `0c366b0` ([#25](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/25)) ([e6da243](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/e6da2439e38f2c403319ce1dbed16c9b8029667d))
+* bump specs/webdriver-bidi from `712c17f` to `287e9c6` ([#43](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/43)) ([2f378f5](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/2f378f5890cbfec58e62f466b73fda0523083216))
+* bump specs/webdriver-bidi from `a46d71b` to `0fa2d99` ([#33](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/33)) ([596a0ab](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/596a0ab776e061bccbc67a4fc38db4d5cce84643))
+* document usage ([#7](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/7)) ([d98a6ee](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/d98a6ee23cbaa943440e2b40831a0c56aa0d6c18))
+* update repository ([28cf911](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/28cf911e59ad5b177df47d04fc012d8c9cfe7fde))
+
 ## [0.0.9](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.0.8...webdriver-bidi-protocol-v0.0.9) (2024-09-03)
 
 
