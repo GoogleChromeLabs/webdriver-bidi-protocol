@@ -1,7 +1,12 @@
 # webdriver-bidi-protocol
 
 This repository contains TypeScript types conforming to the [WebDriver
-BiDi](https://w3c.github.io/webdriver-bidi/) specification.
+BiDi](https://w3c.github.io/webdriver-bidi/) specification. It also
+supports WebDriver BiDi extension modules defined in other
+specifications:
+
+- [Permissions](https://w3c.github.io/permissions/#automation-webdriver-bidi)
+- [Web Bluetooth](https://webbluetoothcg.github.io/web-bluetooth/#automated-testing)
 
 ## Installation
 
