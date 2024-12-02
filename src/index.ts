@@ -6,33 +6,42 @@
 
 import * as Bidi from './gen/main.js';
 import * as BidiPermissions from './gen/permissions.js';
+import * as BidiBluetooth from './gen/web-bluetooth.js';
 
 export * from './gen/main.js';
 export * from './gen/permissions.js';
+export * from './gen/web-bluetooth.js';
 
-export type Command = Bidi.Command | BidiPermissions.Permissions.SetPermission;
-export type Event = Bidi.Event;
+export type Command =
+  | Bidi.Command
+  | BidiPermissions.Permissions.SetPermission
+  | BidiBluetooth.Bluetooth.SimulateAdapter
+  | BidiBluetooth.Bluetooth.HandleRequestDevicePrompt
+  | BidiBluetooth.Bluetooth.SimulateAdvertisement
+  | BidiBluetooth.Bluetooth.SimulatePreconnectedPeripheral;
+export type Event =
+  | Bidi.Event
+  | ({
+      type: 'event';
+    } & BidiBluetooth.Bluetooth.RequestDevicePromptUpdated &
+      Bidi.Extensible);
 
 // TODO: is there a way to generate this mapping?
 export interface Commands {
-  'script.evaluate': {
-    params: Bidi.Script.EvaluateParameters;
-    returnType: Bidi.Script.EvaluateResult;
-  };
-  'script.callFunction': {
-    params: Bidi.Script.CallFunctionParameters;
-    returnType: Bidi.Script.EvaluateResult;
-  };
-  'script.disown': {
-    params: Bidi.Script.DisownParameters;
+  'bluetooth.handleRequestDevicePrompt': {
+    params: BidiBluetooth.Bluetooth.HandleRequestDevicePromptParameters;
     returnType: Bidi.EmptyResult;
   };
-  'script.addPreloadScript': {
-    params: Bidi.Script.AddPreloadScriptParameters;
-    returnType: Bidi.Script.AddPreloadScriptResult;
+  'bluetooth.simulateAdapter': {
+    params: BidiBluetooth.Bluetooth.SimulateAdapterParameters;
+    returnType: Bidi.EmptyResult;
   };
-  'script.removePreloadScript': {
-    params: Bidi.Script.RemovePreloadScriptParameters;
+  'bluetooth.simulateAdvertisement': {
+    params: BidiBluetooth.Bluetooth.SimulateAdvertisementParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'bluetooth.simulatePreconnectedPeripheral': {
+    params: BidiBluetooth.Bluetooth.SimulatePreconnectedPeripheral;
     returnType: Bidi.EmptyResult;
   };
 
@@ -40,7 +49,6 @@ export interface Commands {
     params: Bidi.EmptyParams;
     returnType: Bidi.EmptyResult;
   };
-
   'browser.createUserContext': {
     params: Bidi.EmptyParams;
     returnType: Bidi.Browser.CreateUserContextResult;
@@ -123,6 +131,27 @@ export interface Commands {
     returnType: Bidi.EmptyResult;
   };
 
+  'script.evaluate': {
+    params: Bidi.Script.EvaluateParameters;
+    returnType: Bidi.Script.EvaluateResult;
+  };
+  'script.callFunction': {
+    params: Bidi.Script.CallFunctionParameters;
+    returnType: Bidi.Script.EvaluateResult;
+  };
+  'script.disown': {
+    params: Bidi.Script.DisownParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'script.addPreloadScript': {
+    params: Bidi.Script.AddPreloadScriptParameters;
+    returnType: Bidi.Script.AddPreloadScriptResult;
+  };
+  'script.removePreloadScript': {
+    params: Bidi.Script.RemovePreloadScriptParameters;
+    returnType: Bidi.EmptyResult;
+  };
+
   'session.end': {
     params: Bidi.EmptyParams;
     returnType: Bidi.EmptyResult;
@@ -179,6 +208,15 @@ export interface Commands {
   };
   'network.provideResponse': {
     params: Bidi.Network.ProvideResponseParameters;
+    returnType: Bidi.EmptyResult;
+  };
+
+  'webExtension.install': {
+    params: Bidi.WebExtension.InstallParameters;
+    returnType: Bidi.WebExtension.InstallResult;
+  };
+  'webExtension.uninstall': {
+    params: Bidi.WebExtension.UninstallParameters;
     returnType: Bidi.EmptyResult;
   };
 }

@@ -42,5 +42,21 @@ handleEvent({
     url: '',
     userContext: '',
     originalOpener: null,
+    clientWindow: '',
+  },
+});
+
+sendCommandMultipleArgs('bluetooth.simulateAdapter', {
+  context: '',
+  state: 'powered-on',
+});
+
+handleEvent({
+  type: 'event',
+  method: 'bluetooth.requestDevicePromptUpdated',
+  params: {
+    context: '',
+    prompt: '',
+    devices: [],
   },
 });

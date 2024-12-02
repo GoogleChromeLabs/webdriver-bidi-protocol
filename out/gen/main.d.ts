@@ -56,6 +56,7 @@ export declare const enum ErrorCode {
   InvalidArgument = 'invalid argument',
   InvalidSelector = 'invalid selector',
   InvalidSessionId = 'invalid session id',
+  InvalidWebExtension = 'invalid web extension',
   MoveTargetOutOfBounds = 'move target out of bounds',
   NoSuchAlert = 'no such alert',
   NoSuchElement = 'no such element',
@@ -68,6 +69,7 @@ export declare const enum ErrorCode {
   NoSuchScript = 'no such script',
   NoSuchStoragePartition = 'no such storage partition',
   NoSuchUserContext = 'no such user context',
+  NoSuchWebExtension = 'no such web extension',
   SessionNotCreated = 'session not created',
   UnableToCaptureScreen = 'unable to capture screen',
   UnableToCloseBrowser = 'unable to close browser',
@@ -235,11 +237,28 @@ export declare namespace Session {
 export type BrowserCommand =
   | Browser.Close
   | Browser.CreateUserContext
+  | Browser.GetClientWindows
   | Browser.GetUserContexts
-  | Browser.RemoveUserContext;
+  | Browser.RemoveUserContext
+  | Browser.SetClientWindowState
+  | Record<string, never>;
 export type BrowserResult =
   | Browser.CreateUserContextResult
   | Browser.GetUserContextsResult;
+export declare namespace Browser {
+  type ClientWindow = string;
+}
+export declare namespace Browser {
+  type ClientWindowInfo = {
+    active: boolean;
+    clientWindow: Browser.ClientWindow;
+    height: JsUint;
+    state: 'fullscreen' | 'maximized' | 'minimized' | 'normal';
+    width: JsUint;
+    x: JsInt;
+    y: JsInt;
+  };
+}
 export declare namespace Browser {
   type UserContext = string;
 }
@@ -264,6 +283,17 @@ export declare namespace Browser {
   type CreateUserContextResult = Browser.UserContextInfo;
 }
 export declare namespace Browser {
+  type GetClientWindows = {
+    method: 'browser.getClientWindows';
+    params: EmptyParams;
+  };
+}
+export declare namespace Browser {
+  type GetClientWindowsResult = {
+    clientWindows: [...Browser.ClientWindowInfo[]];
+  };
+}
+export declare namespace Browser {
   type GetUserContexts = {
     method: 'browser.getUserContexts';
     params: EmptyParams;
@@ -285,6 +315,33 @@ export declare namespace Browser {
     userContext: Browser.UserContext;
   };
 }
+export declare namespace Browser {
+  type SetClientWindowState = {
+    method: 'browser.setClientWindowState';
+    params: Browser.SetClientWindowStateParameters;
+  };
+}
+export declare namespace Browser {
+  type SetClientWindowStateParameters =
+    | ({
+        clientWindow: Browser.ClientWindow;
+      } & Browser.ClientWindowNamedState)
+    | Browser.ClientWindowRectState;
+}
+export declare namespace Browser {
+  type ClientWindowNamedState = {
+    state: 'fullscreen' | 'maximized' | 'minimized';
+  };
+}
+export declare namespace Browser {
+  type ClientWindowRectState = {
+    state: 'normal';
+    width?: JsUint;
+    height?: JsUint;
+    x?: JsInt;
+    y?: JsInt;
+  };
+}
 export type BrowsingContextCommand =
   | BrowsingContext.Activate
   | BrowsingContext.CaptureScreenshot
@@ -304,6 +361,7 @@ export type BrowsingContextEvent =
   | BrowsingContext.DomContentLoaded
   | BrowsingContext.DownloadWillBegin
   | BrowsingContext.FragmentNavigated
+  | BrowsingContext.HistoryUpdated
   | BrowsingContext.Load
   | BrowsingContext.NavigationAborted
   | BrowsingContext.NavigationFailed
@@ -327,6 +385,7 @@ export declare namespace BrowsingContext {
 export declare namespace BrowsingContext {
   type Info = {
     children: BrowsingContext.InfoList | null;
+    clientWindow: Browser.ClientWindow;
     context: BrowsingContext.BrowsingContext;
     originalOpener: BrowsingContext.BrowsingContext | null;
     url: string;
@@ -730,6 +789,18 @@ export declare namespace BrowsingContext {
   };
 }
 export declare namespace BrowsingContext {
+  type HistoryUpdated = {
+    method: 'browsingContext.historyUpdated';
+    params: BrowsingContext.HistoryUpdatedParameters;
+  };
+}
+export declare namespace BrowsingContext {
+  type HistoryUpdatedParameters = {
+    context: BrowsingContext.BrowsingContext;
+    url: string;
+  };
+}
+export declare namespace BrowsingContext {
   type DomContentLoaded = {
     method: 'browsingContext.domContentLoaded';
     params: BrowsingContext.NavigationInfo;
@@ -894,11 +965,11 @@ export declare namespace Network {
 }
 export declare namespace Network {
   type Initiator = {
-    type: 'parser' | 'script' | 'preflight' | 'other';
     columnNumber?: JsUint;
     lineNumber?: JsUint;
-    stackTrace?: Script.StackTrace;
     request?: Network.Request;
+    stackTrace?: Script.StackTrace;
+    type?: 'parser' | 'script' | 'preflight' | 'other';
   };
 }
 export declare namespace Network {
@@ -916,6 +987,8 @@ export declare namespace Network {
     cookies: [...Network.Cookie[]];
     headersSize: JsUint;
     bodySize: JsUint | null;
+    destination: string;
+    initiatorType: string | null;
     timings: Network.FetchTimingInfo;
   };
 }
@@ -1121,7 +1194,7 @@ export declare namespace Network {
 }
 export declare namespace Network {
   type BeforeRequestSentParameters = Network.BaseParameters & {
-    initiator: Network.Initiator;
+    initiator?: Network.Initiator;
   };
 }
 export declare namespace Network {
@@ -2183,5 +2256,62 @@ export declare namespace Input {
     context: BrowsingContext.BrowsingContext;
     element: Script.SharedReference;
     files: [...string[]];
+  };
+}
+export type WebExtensionsCommand = WebExtension.Install &
+  WebExtension.Uninstall;
+export type WebExtensionsResult = WebExtension.InstallResult;
+export declare namespace WebExtension {
+  type Extension = string;
+}
+export declare namespace WebExtension {
+  type InstallParameters = {
+    extensionData: WebExtension.ExtensionData;
+  };
+}
+export declare namespace WebExtension {
+  type Install = {
+    method: 'webExtension.install';
+    params: WebExtension.InstallParameters;
+  };
+}
+export declare namespace WebExtension {
+  type ExtensionData =
+    | WebExtension.ExtensionArchivePath
+    | WebExtension.ExtensionBase64Encoded
+    | WebExtension.ExtensionPath;
+}
+export declare namespace WebExtension {
+  type ExtensionPath = {
+    type: 'path';
+    path: string;
+  };
+}
+export declare namespace WebExtension {
+  type ExtensionArchivePath = {
+    type: 'archivePath';
+    path: string;
+  };
+}
+export declare namespace WebExtension {
+  type ExtensionBase64Encoded = {
+    type: 'base64';
+    value: string;
+  };
+}
+export declare namespace WebExtension {
+  type InstallResult = {
+    extension: WebExtension.Extension;
+  };
+}
+export declare namespace WebExtension {
+  type Uninstall = {
+    method: 'webExtension.uninstall';
+    params: WebExtension.UninstallParameters;
+  };
+}
+export declare namespace WebExtension {
+  type UninstallParameters = {
+    extension: WebExtension.Extension;
   };
 }
