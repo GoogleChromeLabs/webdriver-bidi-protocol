@@ -10,7 +10,7 @@ function sendCommand(command: Command) {}
 function handleEvent(event: Event) {}
 function sendCommandMultipleArgs<T extends keyof Commands>(
   method: T,
-  params: Commands[T]['params']
+  params: Commands[T]['params'],
 ): {result: Commands[T]['returnType']} {
   throw new Error('Not implemented');
 }
