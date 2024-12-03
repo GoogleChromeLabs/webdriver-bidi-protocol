@@ -32,9 +32,8 @@ jobs:
         uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7.0.5
         with:
           token: ${{ secrets.BROWSER_AUTOMATION_BOT_TOKEN }}
-          branch: ${{ github.head_ref }}-regenerate
+          branch: regenerate
           delete-branch: true
-          base: ${{ github.head_ref }}
           committer: Browser Automation Bot <browser-automation-bot@google.com>
           author: Browser Automation Bot <browser-automation-bot@google.com>
           commit-message: 'fix: re-generate types based on specifciation updates'
