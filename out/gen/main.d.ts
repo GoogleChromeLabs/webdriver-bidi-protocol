@@ -24,7 +24,7 @@ export type CommandData =
   | ScriptCommand
   | SessionCommand
   | StorageCommand
-  | WebExtensionsCommand;
+  | WebExtensionCommand;
 export type ResultData =
   | BrowsingContextResult
   | EmptyResult
@@ -32,7 +32,7 @@ export type ResultData =
   | ScriptResult
   | SessionResult
   | StorageResult
-  | WebExtensionsResult;
+  | WebExtensionResult;
 export type EmptyParams = Extensible;
 export type Message = CommandResponse | ErrorResponse | Event;
 export type ErrorResponse = {
@@ -2260,10 +2260,8 @@ export declare namespace Input {
     files: [...string[]];
   };
 }
-export type WebExtensionsCommand =
-  | WebExtension.Install
-  | WebExtension.Uninstall;
-export type WebExtensionsResult = WebExtension.InstallResult;
+export type WebExtensionCommand = WebExtension.Install | WebExtension.Uninstall;
+export type WebExtensionResult = WebExtension.InstallResult;
 export declare namespace WebExtension {
   type Extension = string;
 }
