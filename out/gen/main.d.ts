@@ -171,7 +171,24 @@ export declare namespace Session {
   }
 }
 export declare namespace Session {
+  type Subscription = string;
+}
+export declare namespace Session {
   type SubscriptionRequest = {
+    events: [string, ...string[]];
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+  };
+}
+export declare namespace Session {
+  type UnsubscribeByIdRequest = {
+    subscriptions: [Session.Subscription, ...Session.Subscription[]];
+  };
+}
+export declare namespace Session {
+  type UnsubscribeByAttributesRequest = {
     events: [string, ...string[]];
     contexts?: [
       BrowsingContext.BrowsingContext,
@@ -231,9 +248,16 @@ export declare namespace Session {
   };
 }
 export declare namespace Session {
+  type SubscriptionRequestResult = {
+    subscription: Session.Subscription;
+  };
+}
+export declare namespace Session {
   type Unsubscribe = {
     method: 'session.unsubscribe';
-    params: Session.SubscriptionRequest;
+    params:
+      | Session.UnsubscribeByAttributesRequest
+      | Session.UnsubscribeByIdRequest;
   };
 }
 export type BrowserCommand =
