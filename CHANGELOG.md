@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.1.2...webdriver-bidi-protocol-v0.1.3) (2024-12-20)
+
+
+### Bug Fixes
+
+* re-generate types based on specifciation updates ([#88](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/88)) ([d3c2c6f](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/d3c2c6fcf973551d4bef5cbee5291e3581ae257c))
+
 ## [0.1.2](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.1.1...webdriver-bidi-protocol-v0.1.2) (2024-12-08)
 
 
