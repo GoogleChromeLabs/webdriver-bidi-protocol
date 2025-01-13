@@ -428,6 +428,7 @@ export namespace BrowsingContext {
   export type Locator =
     | BrowsingContext.AccessibilityLocator
     | BrowsingContext.CssLocator
+    | BrowsingContext.ContextLocator
     | BrowsingContext.InnerTextLocator
     | BrowsingContext.XPathLocator;
 }
@@ -444,6 +445,14 @@ export namespace BrowsingContext {
   export type CssLocator = {
     type: 'css';
     value: string;
+  };
+}
+export namespace BrowsingContext {
+  export type ContextLocator = {
+    type: 'context';
+    value: {
+      context: BrowsingContext.BrowsingContext;
+    };
   };
 }
 export namespace BrowsingContext {
