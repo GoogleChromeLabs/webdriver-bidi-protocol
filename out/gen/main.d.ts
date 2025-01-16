@@ -183,6 +183,7 @@ export declare namespace Session {
       BrowsingContext.BrowsingContext,
       ...BrowsingContext.BrowsingContext[],
     ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
   };
 }
 export declare namespace Session {
