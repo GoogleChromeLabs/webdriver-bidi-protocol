@@ -1817,6 +1817,7 @@ export namespace Script {
       BrowsingContext.BrowsingContext,
       ...BrowsingContext.BrowsingContext[],
     ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
     sandbox?: string;
   };
 }
