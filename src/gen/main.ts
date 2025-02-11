@@ -261,10 +261,13 @@ export namespace Session {
 export namespace Session {
   export type Unsubscribe = {
     method: 'session.unsubscribe';
-    params:
-      | Session.UnsubscribeByAttributesRequest
-      | Session.UnsubscribeByIdRequest;
+    params: Session.UnsubscribeParameters;
   };
+}
+export namespace Session {
+  export type UnsubscribeParameters =
+    | Session.UnsubscribeByAttributesRequest
+    | Session.UnsubscribeByIdRequest;
 }
 export type BrowserCommand =
   | Browser.Close
@@ -396,6 +399,7 @@ export type BrowsingContextEvent =
   | BrowsingContext.HistoryUpdated
   | BrowsingContext.Load
   | BrowsingContext.NavigationAborted
+  | BrowsingContext.NavigationCommitted
   | BrowsingContext.NavigationFailed
   | BrowsingContext.NavigationStarted
   | BrowsingContext.UserPromptClosed
@@ -862,6 +866,12 @@ export namespace BrowsingContext {
 export namespace BrowsingContext {
   export type NavigationAborted = {
     method: 'browsingContext.navigationAborted';
+    params: BrowsingContext.NavigationInfo;
+  };
+}
+export namespace BrowsingContext {
+  export type NavigationCommitted = {
+    method: 'browsingContext.navigationCommitted';
     params: BrowsingContext.NavigationInfo;
   };
 }
@@ -2217,8 +2227,8 @@ export namespace Input {
 export namespace Input {
   export type PointerMoveAction = {
     type: 'pointerMove';
-    x: JsInt;
-    y: JsInt;
+    x: number;
+    y: number;
     duration?: JsUint;
     origin?: Input.Origin;
   } & Input.PointerCommonProperties;
