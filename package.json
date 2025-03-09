@@ -23,8 +23,8 @@
     "@types/node": "^22.5.2",
     "gts": "^6.0.2",
     "parse5": "^7.1.2",
-    "prettier": "3.4.2",
+    "prettier": "3.5.3",
     "tsd": "0.31.2",
-    "typescript": "5.7.3"
+    "typescript": "5.8.2"
   }
 }
