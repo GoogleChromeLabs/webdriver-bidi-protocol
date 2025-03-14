@@ -62,9 +62,19 @@ export namespace Bluetooth {
 export namespace Bluetooth {
   export type SimulateAdapterParameters = {
     context: string;
-    type: 'create' | 'update' | 'remove';
     leSupported?: boolean;
-    state?: 'absent' | 'powered-off' | 'powered-on';
+    state: 'absent' | 'powered-off' | 'powered-on';
+  };
+}
+export namespace Bluetooth {
+  export type DisableSimulation = {
+    method: 'bluetooth.disableSimulation';
+    params: Bluetooth.DisableSimulationParameters;
+  };
+}
+export namespace Bluetooth {
+  export type DisableSimulationParameters = {
+    context: string;
   };
 }
 export namespace Bluetooth {
