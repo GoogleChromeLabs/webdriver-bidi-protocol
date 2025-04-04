@@ -20,6 +20,7 @@ export type EventData =
 export type CommandData =
   | BrowserCommand
   | BrowsingContextCommand
+  | EmulationCommand
   | InputCommand
   | NetworkCommand
   | ScriptCommand
@@ -97,8 +98,7 @@ export namespace Session {
     | Session.DirectProxyConfiguration
     | Session.ManualProxyConfiguration
     | Session.PacProxyConfiguration
-    | Session.SystemProxyConfiguration
-    | Record<string, never>;
+    | Session.SystemProxyConfiguration;
 }
 export type SessionResult =
   | Session.NewResult
@@ -277,8 +277,7 @@ export type BrowserCommand =
   | Browser.GetClientWindows
   | Browser.GetUserContexts
   | Browser.RemoveUserContext
-  | Browser.SetClientWindowState
-  | Record<string, never>;
+  | Browser.SetClientWindowState;
 export type BrowserResult =
   | Browser.CreateUserContextResult
   | Browser.GetUserContextsResult;
@@ -479,12 +478,15 @@ export namespace BrowsingContext {
   export type Navigation = string;
 }
 export namespace BrowsingContext {
-  export type NavigationInfo = {
+  export type BaseNavigationInfo = {
     context: BrowsingContext.BrowsingContext;
     navigation: BrowsingContext.Navigation | null;
     timestamp: JsUint;
     url: string;
   };
+}
+export namespace BrowsingContext {
+  export type NavigationInfo = BrowsingContext.BaseNavigationInfo;
 }
 export namespace BrowsingContext {
   export const enum ReadinessState {
@@ -861,8 +863,13 @@ export namespace BrowsingContext {
 export namespace BrowsingContext {
   export type DownloadWillBegin = {
     method: 'browsingContext.downloadWillBegin';
-    params: BrowsingContext.NavigationInfo;
+    params: BrowsingContext.DownloadWillBeginParams;
   };
+}
+export namespace BrowsingContext {
+  export type DownloadWillBeginParams = {
+    suggestedFilename: string;
+  } & BrowsingContext.BaseNavigationInfo;
 }
 export namespace BrowsingContext {
   export type NavigationAborted = {
@@ -909,6 +916,49 @@ export namespace BrowsingContext {
     message: string;
     type: BrowsingContext.UserPromptType;
     defaultValue?: string;
+  };
+}
+export type EmulationCommand = Emulation.SetGeolocationOverride;
+export namespace Emulation {
+  export type SetGeolocationOverride = {
+    method: 'emulation.setGeolocationOverride';
+    params: Emulation.SetGeolocationOverrideParameters;
+  };
+}
+export namespace Emulation {
+  export type SetGeolocationOverrideParameters = {
+    coordinates: Emulation.GeolocationCoordinates | null;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
+export namespace Emulation {
+  export type GeolocationCoordinates = {
+    latitude: number;
+    longitude: number;
+    /**
+     * @defaultValue `1`
+     */
+    accuracy?: number;
+    /**
+     * @defaultValue `null`
+     */
+    altitude?: number | null;
+    /**
+     * @defaultValue `null`
+     */
+    altitudeAccuracy?: number | null;
+    /**
+     * @defaultValue `null`
+     */
+    heading?: number | null;
+    /**
+     * @defaultValue `null`
+     */
+    speed?: number | null;
   };
 }
 export type NetworkCommand =
