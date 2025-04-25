@@ -935,9 +935,17 @@ export declare namespace Emulation {
 }
 export declare namespace Emulation {
   type GeolocationCoordinates = {
+    /**
+     * Must be between `-90` and `90`, inclusive.
+     */
     latitude: number;
+    /**
+     * Must be between `-180` and `180`, inclusive.
+     */
     longitude: number;
     /**
+     * Must be greater than or equal to `0`.
+     *
      * @defaultValue `1`
      */
     accuracy?: number;
@@ -946,14 +954,20 @@ export declare namespace Emulation {
      */
     altitude?: number | null;
     /**
+     * Must be greater than or equal to `0`.
+     *
      * @defaultValue `null`
      */
     altitudeAccuracy?: number | null;
     /**
+     * Must be between `0` and `360`.
+     *
      * @defaultValue `null`
      */
     heading?: number | null;
     /**
+     * Must be greater than or equal to `0`.
+     *
      * @defaultValue `null`
      */
     speed?: number | null;
