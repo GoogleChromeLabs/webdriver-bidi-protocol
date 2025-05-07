@@ -926,8 +926,14 @@ export namespace Emulation {
   };
 }
 export namespace Emulation {
-  export type SetGeolocationOverrideParameters = {
-    coordinates: Emulation.GeolocationCoordinates | null;
+  export type SetGeolocationOverrideParameters = (
+    | {
+        coordinates: Emulation.GeolocationCoordinates | null;
+      }
+    | {
+        error: Emulation.GeolocationPositionError;
+      }
+  ) & {
     contexts?: [
       BrowsingContext.BrowsingContext,
       ...BrowsingContext.BrowsingContext[],
@@ -973,6 +979,11 @@ export namespace Emulation {
      * @defaultValue `null`
      */
     speed?: number | null;
+  };
+}
+export namespace Emulation {
+  export type GeolocationPositionError = {
+    type: 'positionUnavailable';
   };
 }
 export type NetworkCommand =
