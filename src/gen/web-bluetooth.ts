@@ -210,6 +210,7 @@ export namespace Bluetooth {
       | 'subscribe-to-notifications'
       | 'unsubscribe-from-notifications';
     code: number;
+    data?: [...number[]];
   };
 }
 export namespace Bluetooth {
@@ -243,8 +244,12 @@ export namespace Bluetooth {
     descriptorUuid: Bluetooth.BluetoothUuid;
     type: 'read' | 'write';
     code: number;
+    data?: [...number[]];
   };
 }
+export type BluetoothEvent =
+  | Bluetooth.RequestDevicePromptUpdated
+  | Bluetooth.GattConnectionAttempted;
 export namespace Bluetooth {
   export type RequestDevicePromptUpdated = {
     method: 'bluetooth.requestDevicePromptUpdated';

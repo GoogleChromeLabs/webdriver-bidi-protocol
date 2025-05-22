@@ -312,7 +312,13 @@ export namespace Browser {
 export namespace Browser {
   export type CreateUserContext = {
     method: 'browser.createUserContext';
-    params: EmptyParams;
+    params: Browser.CreateUserContextParameters;
+  };
+}
+export namespace Browser {
+  export type CreateUserContextParameters = {
+    acceptInsecureCerts?: boolean;
+    proxy?: Session.ProxyConfiguration;
   };
 }
 export namespace Browser {
@@ -1695,16 +1701,16 @@ export namespace Script {
   };
 }
 export namespace Script {
-  export type RegExpRemoteValue = {
+  export type RegExpRemoteValue = Script.RegExpLocalValue & {
     handle?: Script.Handle;
     internalId?: Script.InternalId;
-  } & Script.RegExpLocalValue;
+  };
 }
 export namespace Script {
-  export type DateRemoteValue = {
+  export type DateRemoteValue = Script.DateLocalValue & {
     handle?: Script.Handle;
     internalId?: Script.InternalId;
-  } & Script.DateLocalValue;
+  };
 }
 export namespace Script {
   export type MapRemoteValue = {
