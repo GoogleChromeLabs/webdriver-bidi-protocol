@@ -397,6 +397,7 @@ export type BrowsingContextEvent =
   | BrowsingContext.ContextCreated
   | BrowsingContext.ContextDestroyed
   | BrowsingContext.DomContentLoaded
+  | BrowsingContext.DownloadEnd
   | BrowsingContext.DownloadWillBegin
   | BrowsingContext.FragmentNavigated
   | BrowsingContext.HistoryUpdated
@@ -849,6 +850,7 @@ export declare namespace BrowsingContext {
 export declare namespace BrowsingContext {
   type HistoryUpdatedParameters = {
     context: BrowsingContext.BrowsingContext;
+    timestamp: JsUint;
     url: string;
   };
 }
@@ -873,6 +875,28 @@ export declare namespace BrowsingContext {
 export declare namespace BrowsingContext {
   type DownloadWillBeginParams = {
     suggestedFilename: string;
+  } & BrowsingContext.BaseNavigationInfo;
+}
+export declare namespace BrowsingContext {
+  type DownloadEnd = {
+    method: 'browsingContext.downloadEnd';
+    params: BrowsingContext.DownloadEndParams;
+  };
+}
+export declare namespace BrowsingContext {
+  type DownloadEndParams =
+    | BrowsingContext.DownloadCanceledParams
+    | BrowsingContext.DownloadCompleteParams;
+}
+export declare namespace BrowsingContext {
+  type DownloadCanceledParams = {
+    status: 'canceled';
+  } & BrowsingContext.BaseNavigationInfo;
+}
+export declare namespace BrowsingContext {
+  type DownloadCompleteParams = {
+    status: 'complete';
+    filepath: string | null;
   } & BrowsingContext.BaseNavigationInfo;
 }
 export declare namespace BrowsingContext {
