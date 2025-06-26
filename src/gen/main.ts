@@ -65,11 +65,13 @@ export const enum ErrorCode {
   InvalidWebExtension = 'invalid web extension',
   MoveTargetOutOfBounds = 'move target out of bounds',
   NoSuchAlert = 'no such alert',
+  NoSuchNetworkCollector = 'no such network collector',
   NoSuchElement = 'no such element',
   NoSuchFrame = 'no such frame',
   NoSuchHandle = 'no such handle',
   NoSuchHistoryEntry = 'no such history entry',
   NoSuchIntercept = 'no such intercept',
+  NoSuchNetworkData = 'no such network data',
   NoSuchNode = 'no such node',
   NoSuchRequest = 'no such request',
   NoSuchScript = 'no such script',
@@ -81,6 +83,7 @@ export const enum ErrorCode {
   UnableToCloseBrowser = 'unable to close browser',
   UnableToSetCookie = 'unable to set cookie',
   UnableToSetFileInput = 'unable to set file input',
+  UnavailableNetworkData = 'unavailable network data',
   UnderspecifiedStoragePartition = 'underspecified storage partition',
   UnknownCommand = 'unknown command',
   UnknownError = 'unknown error',
@@ -133,7 +136,6 @@ export namespace Session {
 export namespace Session {
   export type ManualProxyConfiguration = {
     proxyType: 'manual';
-    ftpProxy?: string;
     httpProxy?: string;
     sslProxy?: string;
   } & ({} | Session.SocksProxyConfiguration) & {
@@ -948,7 +950,9 @@ export namespace BrowsingContext {
     defaultValue?: string;
   };
 }
-export type EmulationCommand = Emulation.SetGeolocationOverride;
+export type EmulationCommand =
+  | Emulation.SetGeolocationOverride
+  | Emulation.SetScreenOrientationOverride;
 export namespace Emulation {
   export type SetGeolocationOverride = {
     method: 'emulation.setGeolocationOverride';
@@ -1016,13 +1020,51 @@ export namespace Emulation {
     type: 'positionUnavailable';
   };
 }
+export namespace Emulation {
+  export type SetScreenOrientationOverride = {
+    method: 'emulation.setScreenOrientationOverride';
+    params: Emulation.SetScreenOrientationOverrideParameters;
+  };
+}
+export namespace Emulation {
+  export const enum ScreenOrientationNatural {
+    Portrait = 'portrait',
+    Landscape = 'landscape',
+  }
+}
+export namespace Emulation {
+  export type ScreenOrientationType =
+    | 'portrait-primary'
+    | 'portrait-secondary'
+    | 'landscape-primary'
+    | 'landscape-secondary';
+}
+export namespace Emulation {
+  export type ScreenOrientation = {
+    natural: Emulation.ScreenOrientationNatural;
+    type: Emulation.ScreenOrientationType;
+  };
+}
+export namespace Emulation {
+  export type SetScreenOrientationOverrideParameters = {
+    screenOrientation: Emulation.ScreenOrientation | null;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
 export type NetworkCommand =
+  | Network.AddDataCollector
   | Network.AddIntercept
   | Network.ContinueRequest
   | Network.ContinueResponse
   | Network.ContinueWithAuth
   | Network.FailRequest
+  | Network.GetData
   | Network.ProvideResponse
+  | Network.RemoveDataCollector
   | Network.RemoveIntercept
   | Network.SetCacheBehavior;
 export type NetworkEvent =
@@ -1057,6 +1099,11 @@ export namespace Network {
   };
 }
 export namespace Network {
+  export const enum DataType {
+    Response = 'response',
+  }
+}
+export namespace Network {
   export type BytesValue = Network.StringValue | Network.Base64Value;
 }
 export namespace Network {
@@ -1070,6 +1117,14 @@ export namespace Network {
     type: 'base64';
     value: string;
   };
+}
+export namespace Network {
+  export type Collector = string;
+}
+export namespace Network {
+  export const enum CollectorType {
+    Blob = 'blob',
+  }
 }
 export namespace Network {
   export const enum SameSite {
@@ -1203,6 +1258,32 @@ export namespace Network {
   };
 }
 export namespace Network {
+  export type AddDataCollector = {
+    method: 'network.addDataCollector';
+    params: Network.AddDataCollectorParameters;
+  };
+}
+export namespace Network {
+  export type AddDataCollectorParameters = {
+    dataTypes: [Network.DataType, ...Network.DataType[]];
+    maxEncodedDataSize: JsUint;
+    /**
+     * @defaultValue `"blob"`
+     */
+    collectorType?: Network.CollectorType;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
+export namespace Network {
+  export type AddDataCollectorResult = {
+    collector: Network.Collector;
+  };
+}
+export namespace Network {
   export type AddInterceptParameters = {
     phases: [Network.InterceptPhase, ...Network.InterceptPhase[]];
     contexts?: [
@@ -1288,6 +1369,19 @@ export namespace Network {
   };
 }
 export namespace Network {
+  export type DisownData = {
+    method: 'network.disownData';
+    params: Network.DisownDataParameters;
+  };
+}
+export namespace Network {
+  export type DisownDataParameters = {
+    dataType: Network.DataType;
+    collector: Network.Collector;
+    request: Network.Request;
+  };
+}
+export namespace Network {
   export type FailRequest = {
     method: 'network.failRequest';
     params: Network.FailRequestParameters;
@@ -1296,6 +1390,28 @@ export namespace Network {
 export namespace Network {
   export type FailRequestParameters = {
     request: Network.Request;
+  };
+}
+export namespace Network {
+  export type GetData = {
+    method: 'network.getData';
+    params: Network.GetDataParameters;
+  };
+}
+export namespace Network {
+  export type GetDataParameters = {
+    dataType: Network.DataType;
+    collector?: Network.Collector;
+    /**
+     * @defaultValue `false`
+     */
+    disown?: boolean;
+    request: Network.Request;
+  };
+}
+export namespace Script {
+  export type GetDataResult = {
+    bytes: Network.BytesValue;
   };
 }
 export namespace Network {
@@ -1312,6 +1428,17 @@ export namespace Network {
     headers?: [...Network.Header[]];
     reasonPhrase?: string;
     statusCode?: JsUint;
+  };
+}
+export namespace Network {
+  export type RemoveDataCollector = {
+    method: 'network.removeDataCollector';
+    params: Network.RemoveDataCollectorParameters;
+  };
+}
+export namespace Network {
+  export type RemoveDataCollectorParameters = {
+    collector: Network.Collector;
   };
 }
 export namespace Network {
