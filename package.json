@@ -20,10 +20,10 @@
     "url": "git+https://github.com/GoogleChromeLabs/webdriver-bidi-protocol.git"
   },
   "devDependencies": {
-    "@types/node": "^22.5.2",
+    "@types/node": "^24.0.4",
     "gts": "^6.0.2",
     "parse5": "^7.1.2",
-    "prettier": "3.5.3",
+    "prettier": "3.6.1",
     "tsd": "0.32.0",
     "typescript": "5.8.3"
   }
