@@ -950,6 +950,7 @@ export declare namespace BrowsingContext {
 }
 export type EmulationCommand =
   | Emulation.SetGeolocationOverride
+  | Emulation.SetLocaleOverride
   | Emulation.SetScreenOrientationOverride;
 export declare namespace Emulation {
   type SetGeolocationOverride = {
@@ -1016,6 +1017,22 @@ export declare namespace Emulation {
 export declare namespace Emulation {
   type GeolocationPositionError = {
     type: 'positionUnavailable';
+  };
+}
+export declare namespace Emulation {
+  type SetLocaleOverride = {
+    method: 'emulation.setLocaleOverride';
+    params: Emulation.SetLocaleOverrideParameters;
+  };
+}
+export declare namespace Emulation {
+  type SetLocaleOverrideParameters = {
+    locale: string | null;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
   };
 }
 export declare namespace Emulation {
