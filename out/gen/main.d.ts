@@ -1146,6 +1146,7 @@ export declare namespace Network {
     Strict = 'strict',
     Lax = 'lax',
     None = 'none',
+    Default = 'default',
   }
 }
 export declare namespace Network {
