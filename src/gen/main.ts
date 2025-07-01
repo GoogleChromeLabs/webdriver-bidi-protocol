@@ -1148,6 +1148,7 @@ export namespace Network {
     Strict = 'strict',
     Lax = 'lax',
     None = 'none',
+    Default = 'default',
   }
 }
 export namespace Network {
