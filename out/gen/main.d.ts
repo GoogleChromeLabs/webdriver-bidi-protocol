@@ -1076,6 +1076,7 @@ export type NetworkCommand =
   | Network.ContinueRequest
   | Network.ContinueResponse
   | Network.ContinueWithAuth
+  | Network.DisownData
   | Network.FailRequest
   | Network.GetData
   | Network.ProvideResponse
@@ -1425,7 +1426,7 @@ export declare namespace Network {
     request: Network.Request;
   };
 }
-export declare namespace Script {
+export declare namespace Network {
   type GetDataResult = {
     bytes: Network.BytesValue;
   };
