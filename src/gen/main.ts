@@ -321,6 +321,7 @@ export namespace Browser {
   export type CreateUserContextParameters = {
     acceptInsecureCerts?: boolean;
     proxy?: Session.ProxyConfiguration;
+    unhandledPromptBehavior?: Session.UserPromptHandler;
   };
 }
 export namespace Browser {
@@ -1078,6 +1079,7 @@ export type NetworkCommand =
   | Network.ContinueRequest
   | Network.ContinueResponse
   | Network.ContinueWithAuth
+  | Network.DisownData
   | Network.FailRequest
   | Network.GetData
   | Network.ProvideResponse
@@ -1427,7 +1429,7 @@ export namespace Network {
     request: Network.Request;
   };
 }
-export namespace Script {
+export namespace Network {
   export type GetDataResult = {
     bytes: Network.BytesValue;
   };
