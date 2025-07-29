@@ -952,7 +952,8 @@ export declare namespace BrowsingContext {
 export type EmulationCommand =
   | Emulation.SetGeolocationOverride
   | Emulation.SetLocaleOverride
-  | Emulation.SetScreenOrientationOverride;
+  | Emulation.SetScreenOrientationOverride
+  | Emulation.SetTimezoneOverride;
 export declare namespace Emulation {
   type SetGeolocationOverride = {
     method: 'emulation.setGeolocationOverride';
@@ -1071,6 +1072,22 @@ export declare namespace Emulation {
     userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
   };
 }
+export declare namespace Emulation {
+  type SetTimezoneOverride = {
+    method: 'emulation.setTimezoneOverride';
+    params: Emulation.SetTimezoneOverrideParameters;
+  };
+}
+export declare namespace Emulation {
+  type SetTimezoneOverrideParameters = {
+    timezone: string | null;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
 export type NetworkCommand =
   | Network.AddDataCollector
   | Network.AddIntercept
@@ -1083,7 +1100,8 @@ export type NetworkCommand =
   | Network.ProvideResponse
   | Network.RemoveDataCollector
   | Network.RemoveIntercept
-  | Network.SetCacheBehavior;
+  | Network.SetCacheBehavior
+  | Network.SetExtraHeaders;
 export type NetworkEvent =
   | Network.AuthRequired
   | Network.BeforeRequestSent
@@ -1114,11 +1132,6 @@ export declare namespace Network {
     timestamp: JsUint;
     intercepts?: [Network.Intercept, ...Network.Intercept[]];
   };
-}
-export declare namespace Network {
-  const enum DataType {
-    Response = 'response',
-  }
 }
 export declare namespace Network {
   type BytesValue = Network.StringValue | Network.Base64Value;
@@ -1169,6 +1182,11 @@ export declare namespace Network {
     name: string;
     value: Network.BytesValue;
   };
+}
+export declare namespace Network {
+  const enum DataType {
+    Response = 'response',
+  }
 }
 export declare namespace Network {
   type FetchTimingInfo = {
@@ -1483,6 +1501,22 @@ export declare namespace Network {
       BrowsingContext.BrowsingContext,
       ...BrowsingContext.BrowsingContext[],
     ];
+  };
+}
+export declare namespace Network {
+  type SetExtraHeaders = {
+    method: 'network.setExtraHeaders';
+    params: Network.SetExtraHeadersParameters;
+  };
+}
+export declare namespace Network {
+  type SetExtraHeadersParameters = {
+    headers: [Network.Header, ...Network.Header[]];
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
   };
 }
 export type ScriptEvent =
