@@ -18,7 +18,10 @@ export type Command =
   | BidiBluetooth.Bluetooth.SimulateAdapter
   | BidiBluetooth.Bluetooth.HandleRequestDevicePrompt
   | BidiBluetooth.Bluetooth.SimulateAdvertisement
-  | BidiBluetooth.Bluetooth.SimulatePreconnectedPeripheral;
+  | BidiBluetooth.Bluetooth.SimulatePreconnectedPeripheral
+  | BidiBluetooth.Bluetooth.DisableSimulation
+  | BidiBluetooth.Bluetooth.SimulateGattDisconnection
+  | BidiBluetooth.Bluetooth.SimulateDescriptorResponse;
 export type Event =
   | Bidi.Event
   | ({
@@ -32,6 +35,10 @@ export interface Commands {
     params: BidiBluetooth.Bluetooth.HandleRequestDevicePromptParameters;
     returnType: Bidi.EmptyResult;
   };
+  'bluetooth.disableSimulation': {
+    params: BidiBluetooth.Bluetooth.DisableSimulationParameters;
+    returnType: Bidi.EmptyResult;
+  };
   'bluetooth.simulateAdapter': {
     params: BidiBluetooth.Bluetooth.SimulateAdapterParameters;
     returnType: Bidi.EmptyResult;
@@ -41,13 +48,29 @@ export interface Commands {
     returnType: Bidi.EmptyResult;
   };
   'bluetooth.simulatePreconnectedPeripheral': {
-    params: BidiBluetooth.Bluetooth.SimulatePreconnectedPeripheral;
+    params: BidiBluetooth.Bluetooth.SimulatePreconnectedPeripheralParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'bluetooth.simulateGattDisconnection': {
+    params: BidiBluetooth.Bluetooth.SimulateGattDisconnectionParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'bluetooth.simulateDescriptor': {
+    params: BidiBluetooth.Bluetooth.SimulateDescriptorParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'bluetooth.simulateDescriptorResponse': {
+    params: BidiBluetooth.Bluetooth.SimulateDescriptorResponseParameters;
     returnType: Bidi.EmptyResult;
   };
 
   'browser.close': {
     params: Bidi.EmptyParams;
     returnType: Bidi.EmptyResult;
+  };
+  'browser.getgetClientWindows': {
+    params: Bidi.EmptyParams;
+    returnType: Bidi.Browser.GetClientWindowsResult;
   };
   'browser.createUserContext': {
     params: Bidi.EmptyParams;
@@ -62,6 +85,10 @@ export interface Commands {
       userContext: Bidi.Browser.UserContext;
     };
     returnType: Bidi.Browser.RemoveUserContext;
+  };
+  'browser.setClientWindowState': {
+    params: Bidi.Browser.SetClientWindowStateParameters;
+    returnType: Bidi.Browser.ClientWindowInfo;
   };
 
   'browsingContext.activate': {
@@ -110,6 +137,23 @@ export interface Commands {
   };
   'browsingContext.traverseHistory': {
     params: Bidi.BrowsingContext.TraverseHistoryParameters;
+    returnType: Bidi.EmptyResult;
+  };
+
+  'emulation.setForcedColorsModeThemeOverride': {
+    params: Bidi.Emulation.SetForcedColorsModeThemeOverrideParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'emulation.setGeolocationOverride': {
+    params: Bidi.Emulation.SetGeolocationOverrideParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'emulation.setScreenOrientationOverride': {
+    params: Bidi.Emulation.SetScreenOrientationOverrideParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'emulation.setTimezoneOverride': {
+    params: Bidi.Emulation.SetTimezoneOverrideParameters;
     returnType: Bidi.EmptyResult;
   };
 
@@ -186,6 +230,10 @@ export interface Commands {
     returnType: Bidi.Storage.SetCookieParameters;
   };
 
+  'network.addDataCollector': {
+    params: Bidi.Network.AddDataCollectorParameters;
+    returnType: Bidi.Network.AddDataCollectorResult;
+  };
   'network.addIntercept': {
     params: Bidi.Network.AddInterceptParameters;
     returnType: Bidi.Network.AddInterceptResult;
@@ -208,6 +256,22 @@ export interface Commands {
   };
   'network.provideResponse': {
     params: Bidi.Network.ProvideResponseParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'network.disownData': {
+    params: Bidi.Network.DisownDataParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'network.getData': {
+    params: Bidi.Network.GetDataParameters;
+    returnType: Bidi.Network.GetDataResult;
+  };
+  'network.setCacheBehavior': {
+    params: Bidi.Network.SetCacheBehaviorParameters;
+    returnType: Bidi.EmptyResult;
+  };
+  'network.setExtraHeaders': {
+    params: Bidi.Network.SetExtraHeadersParameters;
     returnType: Bidi.EmptyResult;
   };
 
