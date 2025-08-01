@@ -952,10 +952,33 @@ export namespace BrowsingContext {
   };
 }
 export type EmulationCommand =
+  | Emulation.SetForcedColorsModeThemeOverride
   | Emulation.SetGeolocationOverride
   | Emulation.SetLocaleOverride
   | Emulation.SetScreenOrientationOverride
   | Emulation.SetTimezoneOverride;
+export namespace Emulation {
+  export type SetForcedColorsModeThemeOverride = {
+    method: 'emulation.setForcedColorsModeThemeOverride';
+    params: Emulation.SetForcedColorsModeThemeOverrideParameters;
+  };
+}
+export namespace Emulation {
+  export type SetForcedColorsModeThemeOverrideParameters = {
+    theme: Emulation.ForcedColorsModeTheme | null;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
+export namespace Emulation {
+  export const enum ForcedColorsModeTheme {
+    Light = 'light',
+    Dark = 'dark',
+  }
+}
 export namespace Emulation {
   export type SetGeolocationOverride = {
     method: 'emulation.setGeolocationOverride';
