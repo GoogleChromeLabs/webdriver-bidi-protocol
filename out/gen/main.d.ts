@@ -950,10 +950,33 @@ export declare namespace BrowsingContext {
   };
 }
 export type EmulationCommand =
+  | Emulation.SetForcedColorsModeThemeOverride
   | Emulation.SetGeolocationOverride
   | Emulation.SetLocaleOverride
   | Emulation.SetScreenOrientationOverride
   | Emulation.SetTimezoneOverride;
+export declare namespace Emulation {
+  type SetForcedColorsModeThemeOverride = {
+    method: 'emulation.setForcedColorsModeThemeOverride';
+    params: Emulation.SetForcedColorsModeThemeOverrideParameters;
+  };
+}
+export declare namespace Emulation {
+  type SetForcedColorsModeThemeOverrideParameters = {
+    theme: Emulation.ForcedColorsModeTheme | null;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
+export declare namespace Emulation {
+  const enum ForcedColorsModeTheme {
+    Light = 'light',
+    Dark = 'dark',
+  }
+}
 export declare namespace Emulation {
   type SetGeolocationOverride = {
     method: 'emulation.setGeolocationOverride';
