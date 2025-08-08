@@ -1534,7 +1534,7 @@ export declare namespace Network {
 }
 export declare namespace Network {
   type SetExtraHeadersParameters = {
-    headers: [Network.Header, ...Network.Header[]];
+    headers: [...Network.Header[]];
     contexts?: [
       BrowsingContext.BrowsingContext,
       ...BrowsingContext.BrowsingContext[],
