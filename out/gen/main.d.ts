@@ -954,6 +954,7 @@ export type EmulationCommand =
   | Emulation.SetGeolocationOverride
   | Emulation.SetLocaleOverride
   | Emulation.SetScreenOrientationOverride
+  | Emulation.SetScriptingEnabled
   | Emulation.SetTimezoneOverride;
 export declare namespace Emulation {
   type SetForcedColorsModeThemeOverride = {
@@ -1088,6 +1089,22 @@ export declare namespace Emulation {
 export declare namespace Emulation {
   type SetScreenOrientationOverrideParameters = {
     screenOrientation: Emulation.ScreenOrientation | null;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
+export declare namespace Emulation {
+  type SetScriptingEnabled = {
+    method: 'emulation.setScriptingEnabled';
+    params: Emulation.SetScriptingEnabledParameters;
+  };
+}
+export declare namespace Emulation {
+  type SetScriptingEnabledParameters = {
+    enabled: false | null;
     contexts?: [
       BrowsingContext.BrowsingContext,
       ...BrowsingContext.BrowsingContext[],
