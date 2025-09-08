@@ -12,22 +12,27 @@ export * from './gen/main.js';
 export * from './gen/permissions.js';
 export * from './gen/web-bluetooth.js';
 
+type ExternalSpecCommand<T> = {
+  // id is defined by the main WebDriver BiDi spec and extension specs do
+  // not re-define it. Therefore, it's not part of generated types.
+  id: Bidi.JsUint;
+} & T;
+
+type ExternalSpecEvent<T> = {
+  // type is defined by the main WebDriver BiDi spec and extension specs do
+  // not re-define it. Therefore, it's not part of generated types.
+  type: 'event';
+} & T &
+  Bidi.Extensible;
+
 export type Command =
   | Bidi.Command
-  | BidiPermissions.Permissions.SetPermission
-  | BidiBluetooth.Bluetooth.SimulateAdapter
-  | BidiBluetooth.Bluetooth.HandleRequestDevicePrompt
-  | BidiBluetooth.Bluetooth.SimulateAdvertisement
-  | BidiBluetooth.Bluetooth.SimulatePreconnectedPeripheral
-  | BidiBluetooth.Bluetooth.DisableSimulation
-  | BidiBluetooth.Bluetooth.SimulateGattDisconnection
-  | BidiBluetooth.Bluetooth.SimulateDescriptorResponse;
+  | ExternalSpecCommand<BidiPermissions.PermissionsCommand>
+  | ExternalSpecCommand<BidiBluetooth.BluetoothCommand>;
+
 export type Event =
   | Bidi.Event
-  | ({
-      type: 'event';
-    } & BidiBluetooth.Bluetooth.RequestDevicePromptUpdated &
-      Bidi.Extensible);
+  | ExternalSpecEvent<BidiBluetooth.BluetoothEvent>;
 
 // TODO: is there a way to generate this mapping?
 export interface Commands {
