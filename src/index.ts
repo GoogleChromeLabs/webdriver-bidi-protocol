@@ -170,7 +170,6 @@ export interface Commands {
     returnType: Bidi.EmptyResult;
   };
 
-
   'input.performActions': {
     params: Bidi.Input.PerformActionsParameters;
     returnType: Bidi.EmptyResult;
