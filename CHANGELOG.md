@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.9](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.2.8...webdriver-bidi-protocol-v0.2.9) (2025-09-09)
+
+
+### Bug Fixes
+
+* add emulation.setScriptingEnabled ([#234](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/234)) ([d1a7de7](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/d1a7de7dfb7abdc3178524457a5c011f32d08561))
+
 ## [0.2.8](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.2.7...webdriver-bidi-protocol-v0.2.8) (2025-09-09)
 
 
