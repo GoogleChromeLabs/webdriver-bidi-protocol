@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.11](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.2.10...webdriver-bidi-protocol-v0.2.11) (2025-09-10)
+
+
+### Bug Fixes
+
+* add user agent override to the mapping ([#240](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/240)) ([0336e7f](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/0336e7faa0988ac4b0582a86345e5644ee8132bb))
+* re-generate types based on specifciation updates ([#239](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/239)) ([2e52f5a](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/2e52f5ae40367410699d3a9820ad8856e7485712))
+* re-generate types based on specifciation updates ([#242](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/242)) ([8ae63cc](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/8ae63cc2032ac3889b261d78c57b6b5cce412cad))
+
 ## [0.2.10](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.2.9...webdriver-bidi-protocol-v0.2.10) (2025-09-09)
 
 
