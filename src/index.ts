@@ -169,6 +169,10 @@ export interface Commands {
     params: Bidi.Emulation.SetScriptingEnabledParameters;
     returnType: Bidi.EmptyResult;
   };
+  'emulation.setUserAgentOverride': {
+    params: Bidi.Emulation.SetUserAgentOverrideParameters;
+    returnType: Bidi.EmptyResult;
+  };
 
   'input.performActions': {
     params: Bidi.Input.PerformActionsParameters;
