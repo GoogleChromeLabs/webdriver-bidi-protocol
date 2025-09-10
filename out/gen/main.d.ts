@@ -955,7 +955,8 @@ export type EmulationCommand =
   | Emulation.SetLocaleOverride
   | Emulation.SetScreenOrientationOverride
   | Emulation.SetScriptingEnabled
-  | Emulation.SetTimezoneOverride;
+  | Emulation.SetTimezoneOverride
+  | Emulation.SetUserAgentOverride;
 export declare namespace Emulation {
   type SetForcedColorsModeThemeOverride = {
     method: 'emulation.setForcedColorsModeThemeOverride';
@@ -1089,6 +1090,22 @@ export declare namespace Emulation {
 export declare namespace Emulation {
   type SetScreenOrientationOverrideParameters = {
     screenOrientation: Emulation.ScreenOrientation | null;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
+export declare namespace Emulation {
+  type SetUserAgentOverride = {
+    method: 'emulation.setUserAgentOverride';
+    params: Emulation.SetUserAgentOverrideParameters;
+  };
+}
+export declare namespace Emulation {
+  type SetUserAgentOverrideParameters = {
+    userAgent: string | null;
     contexts?: [
       BrowsingContext.BrowsingContext,
       ...BrowsingContext.BrowsingContext[],
