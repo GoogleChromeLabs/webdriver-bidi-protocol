@@ -1,4 +1,9 @@
 /**
  * @type {import('prettier').Config}
  */
-module.exports = require("gts/.prettierrc.json");
+module.exports = {
+  bracketSpacing: false,
+  singleQuote: true,
+  trailingComma: 'all',
+  arrowParens: 'avoid',
+};
