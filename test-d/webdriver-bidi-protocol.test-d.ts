@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Event, Command, Commands} from '..';
+import {Event, Command, CommandMapping} from '..';
 
 function sendCommand(command: Command) {}
 function handleEvent(event: Event) {}
-function sendCommandMultipleArgs<T extends keyof Commands>(
+function sendCommandMultipleArgs<T extends keyof CommandMapping>(
   method: T,
-  params: Commands[T]['params'],
-): {result: Commands[T]['returnType']} {
+  params: CommandMapping[T]['params'],
+): {result: CommandMapping[T]['returnType']} {
   throw new Error('Not implemented');
 }
 

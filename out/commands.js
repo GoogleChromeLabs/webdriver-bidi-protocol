@@ -1,9 +1,4 @@
 "use strict";
-/**
- * @license
- * Copyright 2024 Google Inc.
- * SPDX-License-Identifier: Apache-2.0
- */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -22,3 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./gen/main.js"), exports);
 __exportStar(require("./gen/permissions.js"), exports);
 __exportStar(require("./gen/web-bluetooth.js"), exports);
+// | ExternalSpecCommand<BidiPermissions.PermissionsCommand>
+// | ExternalSpecCommand<BidiBluetooth.BluetoothCommand>;
