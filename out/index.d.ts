@@ -6,6 +6,6 @@
 export * from './gen/main.js';
 export * from './gen/permissions.js';
 export * from './gen/web-bluetooth.js';
-export { Command } from './commands.js';
-export { Event } from './events.js';
-export { CommandMapping } from './gen/mapping.js';
+export {Command} from './commands.js';
+export {Event} from './events.js';
+export {CommandMapping} from './gen/mapping.js';
