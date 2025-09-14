@@ -1,9 +1,7 @@
-import {
+import type {
   ModuleDeclaration,
-  Project,
   SourceFile,
   TypeAliasDeclaration,
-  TypeFormatFlags,
 } from 'ts-morph';
 
 export function getNamespaces(file: SourceFile, s: String) {
@@ -17,19 +15,6 @@ export function getNamespaces(file: SourceFile, s: String) {
   }
   return result;
 }
-
-// // Helper to convert a camelCase string to PascalCase
-// function toPascalCase(str: string): string {
-//   if (!str) {
-//     return '';
-//   }
-//   return str
-//     .split('.')
-//     .map(s => {
-//       return s.charAt(0).toUpperCase() + s.slice(1);
-//     })
-//     .join('.');
-// }
 
 export interface SpecType {
   inputFile: string;
