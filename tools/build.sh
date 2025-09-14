@@ -25,7 +25,7 @@ cddlconv specs/web-bluetooth/all.cddl > src/gen/web-bluetooth.ts
 
 git submodule deinit --all
 
-node --experimental-strip-types ./tools/generateCommandMap.ts
+node ./tools/generateCommandMap.ts
 npx tsc -p tsconfig.json
 npx tsd
 npm run format
