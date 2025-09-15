@@ -1,6 +1,6 @@
 {
   "name": "webdriver-bidi-protocol",
-  "version": "0.2.11",
+  "version": "0.3.0",
   "description": "",
   "main": "out/index.js",
   "types": "out/index.d.ts",
