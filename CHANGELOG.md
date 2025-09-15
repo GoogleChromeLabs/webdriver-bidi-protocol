@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.2.11...webdriver-bidi-protocol-v0.3.0) (2025-09-15)
+
+
+### Features
+
+* automatically generate command mapped types ([#243](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/243)) ([3eb25f3](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/3eb25f35e1a17885c1af7a63037de1fc74c83d05))
+
+
+### Bug Fixes
+
+* re-generate types based on specifciation updates ([#245](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/245)) ([c32b70d](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/c32b70de5fb4dda145c872025192f5cd59177c34))
+
 ## [0.2.11](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.2.10...webdriver-bidi-protocol-v0.2.11) (2025-09-10)
 
 
