@@ -4,6 +4,8 @@
 # Copyright 2024 Google Inc.
 # SPDX-License-Identifier: Apache-2.0
 
+set -e
+
 rm -rf src/gen && mkdir src/gen
 rm -rf out
 
@@ -23,6 +25,7 @@ cddlconv specs/web-bluetooth/all.cddl > src/gen/web-bluetooth.ts
 
 git submodule deinit --all
 
+node ./tools/generateCommandMap.ts
 npx tsc -p tsconfig.json
 npx tsd
 npm run format

@@ -21,10 +21,10 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.4",
-    "gts": "^6.0.2",
     "parse5": "^8.0.0",
     "prettier": "3.6.2",
     "tsd": "0.33.0",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "ts-morph": "27.0.0"
   }
 }

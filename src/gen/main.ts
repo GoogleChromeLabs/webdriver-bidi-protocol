@@ -1,7 +1,22 @@
+export type Event = {
+  type: 'event';
+} & EventData &
+  Extensible;
 export type Command = {
   id: JsUint;
 } & CommandData &
   Extensible;
+export type CommandResponse = {
+  type: 'success';
+  id: JsUint;
+  result: ResultData;
+} & Extensible;
+export type EventData =
+  | BrowsingContextEvent
+  | InputEvent
+  | LogEvent
+  | NetworkEvent
+  | ScriptEvent;
 export type CommandData =
   | BrowserCommand
   | BrowsingContextCommand
@@ -12,20 +27,6 @@ export type CommandData =
   | SessionCommand
   | StorageCommand
   | WebExtensionCommand;
-export type EmptyParams = Extensible;
-export type Message = CommandResponse | ErrorResponse | Event;
-export type CommandResponse = {
-  type: 'success';
-  id: JsUint;
-  result: ResultData;
-} & Extensible;
-export type ErrorResponse = {
-  type: 'error';
-  id: JsUint | null;
-  error: ErrorCode;
-  message: string;
-  stacktrace?: string;
-} & Extensible;
 export type ResultData =
   | BrowsingContextResult
   | EmptyResult
@@ -34,17 +35,16 @@ export type ResultData =
   | SessionResult
   | StorageResult
   | WebExtensionResult;
+export type EmptyParams = Extensible;
+export type Message = CommandResponse | ErrorResponse | Event;
+export type ErrorResponse = {
+  type: 'error';
+  id: JsUint | null;
+  error: ErrorCode;
+  message: string;
+  stacktrace?: string;
+} & Extensible;
 export type EmptyResult = Extensible;
-export type Event = {
-  type: 'event';
-} & EventData &
-  Extensible;
-export type EventData =
-  | BrowsingContextEvent
-  | InputEvent
-  | LogEvent
-  | NetworkEvent
-  | ScriptEvent;
 export type Extensible = {
   [key: string]: any;
 };
@@ -95,6 +95,14 @@ export type SessionCommand =
   | Session.Status
   | Session.Subscribe
   | Session.Unsubscribe;
+export namespace Session {
+  export type ProxyConfiguration =
+    | Session.AutodetectProxyConfiguration
+    | Session.DirectProxyConfiguration
+    | Session.ManualProxyConfiguration
+    | Session.PacProxyConfiguration
+    | Session.SystemProxyConfiguration;
+}
 export type SessionResult =
   | Session.NewResult
   | Session.StatusResult
@@ -114,14 +122,6 @@ export namespace Session {
     proxy?: Session.ProxyConfiguration;
     unhandledPromptBehavior?: Session.UserPromptHandler;
   } & Extensible;
-}
-export namespace Session {
-  export type ProxyConfiguration =
-    | Session.AutodetectProxyConfiguration
-    | Session.DirectProxyConfiguration
-    | Session.ManualProxyConfiguration
-    | Session.PacProxyConfiguration
-    | Session.SystemProxyConfiguration;
 }
 export namespace Session {
   export type AutodetectProxyConfiguration = {
@@ -398,14 +398,6 @@ export type BrowsingContextCommand =
   | BrowsingContext.Reload
   | BrowsingContext.SetViewport
   | BrowsingContext.TraverseHistory;
-export type BrowsingContextResult =
-  | BrowsingContext.CaptureScreenshotResult
-  | BrowsingContext.CreateResult
-  | BrowsingContext.GetTreeResult
-  | BrowsingContext.LocateNodesResult
-  | BrowsingContext.NavigateResult
-  | BrowsingContext.PrintResult
-  | BrowsingContext.TraverseHistoryResult;
 export type BrowsingContextEvent =
   | BrowsingContext.ContextCreated
   | BrowsingContext.ContextDestroyed
@@ -421,6 +413,14 @@ export type BrowsingContextEvent =
   | BrowsingContext.NavigationStarted
   | BrowsingContext.UserPromptClosed
   | BrowsingContext.UserPromptOpened;
+export type BrowsingContextResult =
+  | BrowsingContext.CaptureScreenshotResult
+  | BrowsingContext.CreateResult
+  | BrowsingContext.GetTreeResult
+  | BrowsingContext.LocateNodesResult
+  | BrowsingContext.NavigateResult
+  | BrowsingContext.PrintResult
+  | BrowsingContext.TraverseHistoryResult;
 export namespace BrowsingContext {
   export type BrowsingContext = string;
 }
@@ -525,12 +525,6 @@ export namespace BrowsingContext {
   };
 }
 export namespace BrowsingContext {
-  export type CaptureScreenshot = {
-    method: 'browsingContext.captureScreenshot';
-    params: BrowsingContext.CaptureScreenshotParameters;
-  };
-}
-export namespace BrowsingContext {
   export type CaptureScreenshotParameters = {
     context: BrowsingContext.BrowsingContext;
     /**
@@ -539,6 +533,12 @@ export namespace BrowsingContext {
     origin?: 'viewport' | 'document';
     format?: BrowsingContext.ImageFormat;
     clip?: BrowsingContext.ClipRectangle;
+  };
+}
+export namespace BrowsingContext {
+  export type CaptureScreenshot = {
+    method: 'browsingContext.captureScreenshot';
+    params: BrowsingContext.CaptureScreenshotParameters;
   };
 }
 export namespace BrowsingContext {
@@ -649,12 +649,6 @@ export namespace BrowsingContext {
   };
 }
 export namespace BrowsingContext {
-  export type LocateNodes = {
-    method: 'browsingContext.locateNodes';
-    params: BrowsingContext.LocateNodesParameters;
-  };
-}
-export namespace BrowsingContext {
   export type LocateNodesParameters = {
     context: BrowsingContext.BrowsingContext;
     locator: BrowsingContext.Locator;
@@ -664,6 +658,12 @@ export namespace BrowsingContext {
     maxNodeCount?: JsUint;
     serializationOptions?: Script.SerializationOptions;
     startNodes?: [Script.SharedReference, ...Script.SharedReference[]];
+  };
+}
+export namespace BrowsingContext {
+  export type LocateNodes = {
+    method: 'browsingContext.locateNodes';
+    params: BrowsingContext.LocateNodesParameters;
   };
 }
 export namespace BrowsingContext {
@@ -1161,13 +1161,13 @@ export type NetworkCommand =
   | Network.RemoveIntercept
   | Network.SetCacheBehavior
   | Network.SetExtraHeaders;
-export type NetworkResult = Network.AddInterceptResult;
 export type NetworkEvent =
   | Network.AuthRequired
   | Network.BeforeRequestSent
   | Network.FetchError
   | Network.ResponseCompleted
   | Network.ResponseStarted;
+export type NetworkResult = Network.AddInterceptResult;
 export namespace Network {
   export type AuthChallenge = {
     scheme: string;
@@ -1379,12 +1379,6 @@ export namespace Network {
   };
 }
 export namespace Network {
-  export type AddIntercept = {
-    method: 'network.addIntercept';
-    params: Network.AddInterceptParameters;
-  };
-}
-export namespace Network {
   export type AddInterceptParameters = {
     phases: [Network.InterceptPhase, ...Network.InterceptPhase[]];
     contexts?: [
@@ -1392,6 +1386,12 @@ export namespace Network {
       ...BrowsingContext.BrowsingContext[],
     ];
     urlPatterns?: [...Network.UrlPattern[]];
+  };
+}
+export namespace Network {
+  export type AddIntercept = {
+    method: 'network.addIntercept';
+    params: Network.AddInterceptParameters;
   };
 }
 export namespace Network {
@@ -1578,21 +1578,13 @@ export namespace Network {
     userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
   };
 }
-export namespace Network {
-  export type AuthRequired = {
-    method: 'network.authRequired';
-    params: Network.AuthRequiredParameters;
-  };
-}
+export type ScriptEvent =
+  | Script.Message
+  | Script.RealmCreated
+  | Script.RealmDestroyed;
 export namespace Network {
   export type AuthRequiredParameters = Network.BaseParameters & {
     response: Network.ResponseData;
-  };
-}
-export namespace Network {
-  export type BeforeRequestSent = {
-    method: 'network.beforeRequestSent';
-    params: Network.BeforeRequestSentParameters;
   };
 }
 export namespace Network {
@@ -1601,31 +1593,13 @@ export namespace Network {
   };
 }
 export namespace Network {
-  export type FetchError = {
-    method: 'network.fetchError';
-    params: Network.FetchErrorParameters;
-  };
-}
-export namespace Network {
   export type FetchErrorParameters = Network.BaseParameters & {
     errorText: string;
   };
 }
 export namespace Network {
-  export type ResponseCompleted = {
-    method: 'network.responseCompleted';
-    params: Network.ResponseCompletedParameters;
-  };
-}
-export namespace Network {
   export type ResponseCompletedParameters = Network.BaseParameters & {
     response: Network.ResponseData;
-  };
-}
-export namespace Network {
-  export type ResponseStarted = {
-    method: 'network.responseStarted';
-    params: Network.ResponseStartedParameters;
   };
 }
 export namespace Network {
@@ -1644,12 +1618,54 @@ export type ScriptResult =
   | Script.AddPreloadScriptResult
   | Script.EvaluateResult
   | Script.GetRealmsResult;
-export type ScriptEvent =
-  | Script.Message
-  | Script.RealmCreated
-  | Script.RealmDestroyed;
+export namespace Network {
+  export type AuthRequired = {
+    method: 'network.authRequired';
+    params: Network.AuthRequiredParameters;
+  };
+}
+export namespace Network {
+  export type BeforeRequestSent = {
+    method: 'network.beforeRequestSent';
+    params: Network.BeforeRequestSentParameters;
+  };
+}
+export namespace Network {
+  export type FetchError = {
+    method: 'network.fetchError';
+    params: Network.FetchErrorParameters;
+  };
+}
+export namespace Network {
+  export type ResponseCompleted = {
+    method: 'network.responseCompleted';
+    params: Network.ResponseCompletedParameters;
+  };
+}
+export namespace Network {
+  export type ResponseStarted = {
+    method: 'network.responseStarted';
+    params: Network.ResponseStartedParameters;
+  };
+}
 export namespace Script {
   export type Channel = string;
+}
+export namespace Script {
+  export type EvaluateResultSuccess = {
+    type: 'success';
+    result: Script.RemoteValue;
+    realm: Script.Realm;
+  };
+}
+export namespace Script {
+  export type ExceptionDetails = {
+    columnNumber: JsUint;
+    exception: Script.RemoteValue;
+    lineNumber: JsUint;
+    stackTrace: Script.StackTrace;
+    text: string;
+  };
 }
 export namespace Script {
   export type ChannelValue = {
@@ -1670,13 +1686,6 @@ export namespace Script {
     | Script.EvaluateResultException;
 }
 export namespace Script {
-  export type EvaluateResultSuccess = {
-    type: 'success';
-    result: Script.RemoteValue;
-    realm: Script.Realm;
-  };
-}
-export namespace Script {
   export type EvaluateResultException = {
     type: 'exception';
     exceptionDetails: Script.ExceptionDetails;
@@ -1684,19 +1693,13 @@ export namespace Script {
   };
 }
 export namespace Script {
-  export type ExceptionDetails = {
-    columnNumber: JsUint;
-    exception: Script.RemoteValue;
-    lineNumber: JsUint;
-    stackTrace: Script.StackTrace;
-    text: string;
-  };
-}
-export namespace Script {
   export type Handle = string;
 }
 export namespace Script {
   export type InternalId = string;
+}
+export namespace Script {
+  export type ListLocalValue = [...Script.LocalValue[]];
 }
 export namespace Script {
   export type LocalValue =
@@ -1709,9 +1712,6 @@ export namespace Script {
     | Script.ObjectLocalValue
     | Script.RegExpLocalValue
     | Script.SetLocalValue;
-}
-export namespace Script {
-  export type ListLocalValue = [...Script.LocalValue[]];
 }
 export namespace Script {
   export type ArrayLocalValue = {
@@ -1884,21 +1884,12 @@ export namespace Script {
     | 'worklet';
 }
 export namespace Script {
-  export type RemoteReference =
-    | Script.SharedReference
-    | Script.RemoteObjectReference;
+  export type ListRemoteValue = [...Script.RemoteValue[]];
 }
 export namespace Script {
-  export type SharedReference = {
-    sharedId: Script.SharedId;
-    handle?: Script.Handle;
-  } & Extensible;
-}
-export namespace Script {
-  export type RemoteObjectReference = {
-    handle: Script.Handle;
-    sharedId?: Script.SharedId;
-  } & Extensible;
+  export type MappingRemoteValue = [
+    ...[Script.RemoteValue | string, Script.RemoteValue][],
+  ];
 }
 export namespace Script {
   export type RemoteValue =
@@ -1925,12 +1916,21 @@ export namespace Script {
     | Script.WindowProxyRemoteValue;
 }
 export namespace Script {
-  export type ListRemoteValue = [...Script.RemoteValue[]];
+  export type RemoteReference =
+    | Script.SharedReference
+    | Script.RemoteObjectReference;
 }
 export namespace Script {
-  export type MappingRemoteValue = [
-    ...[Script.RemoteValue | string, Script.RemoteValue][],
-  ];
+  export type SharedReference = {
+    sharedId: Script.SharedId;
+    handle?: Script.Handle;
+  } & Extensible;
+}
+export namespace Script {
+  export type RemoteObjectReference = {
+    handle: Script.Handle;
+    sharedId?: Script.SharedId;
+  } & Extensible;
 }
 export namespace Script {
   export type SymbolRemoteValue = {
@@ -2193,12 +2193,6 @@ export namespace Script {
   };
 }
 export namespace Script {
-  export type CallFunction = {
-    method: 'script.callFunction';
-    params: Script.CallFunctionParameters;
-  };
-}
-export namespace Script {
   export type CallFunctionParameters = {
     functionDeclaration: string;
     awaitPromise: boolean;
@@ -2211,6 +2205,12 @@ export namespace Script {
      * @defaultValue `false`
      */
     userActivation?: boolean;
+  };
+}
+export namespace Script {
+  export type CallFunction = {
+    method: 'script.callFunction';
+    params: Script.CallFunctionParameters;
   };
 }
 export namespace Script {
@@ -2261,12 +2261,6 @@ export namespace Script {
   };
 }
 export namespace Script {
-  export type Message = {
-    method: 'script.message';
-    params: Script.MessageParameters;
-  };
-}
-export namespace Script {
   export type MessageParameters = {
     channel: Script.Channel;
     data: Script.RemoteValue;
@@ -2277,6 +2271,12 @@ export namespace Script {
   export type RealmCreated = {
     method: 'script.realmCreated';
     params: Script.RealmInfo;
+  };
+}
+export namespace Script {
+  export type Message = {
+    method: 'script.message';
+    params: Script.MessageParameters;
   };
 }
 export namespace Script {
@@ -2458,15 +2458,37 @@ export namespace Input {
   };
 }
 export namespace Input {
-  export type PerformActions = {
-    method: 'input.performActions';
-    params: Input.PerformActionsParameters;
-  };
-}
-export namespace Input {
   export type PerformActionsParameters = {
     context: BrowsingContext.BrowsingContext;
     actions: [...Input.SourceActions[]];
+  };
+}
+export namespace Input {
+  export type NoneSourceActions = {
+    type: 'none';
+    id: string;
+    actions: [...Input.NoneSourceAction[]];
+  };
+}
+export namespace Input {
+  export type KeySourceActions = {
+    type: 'key';
+    id: string;
+    actions: [...Input.KeySourceAction[]];
+  };
+}
+export namespace Input {
+  export type PointerSourceActions = {
+    type: 'pointer';
+    id: string;
+    parameters?: Input.PointerParameters;
+    actions: [...Input.PointerSourceAction[]];
+  };
+}
+export namespace Input {
+  export type PerformActions = {
+    method: 'input.performActions';
+    params: Input.PerformActionsParameters;
   };
 }
 export namespace Input {
@@ -2477,35 +2499,13 @@ export namespace Input {
     | Input.WheelSourceActions;
 }
 export namespace Input {
-  export type NoneSourceActions = {
-    type: 'none';
-    id: string;
-    actions: [...Input.NoneSourceAction[]];
-  };
-}
-export namespace Input {
   export type NoneSourceAction = Input.PauseAction;
-}
-export namespace Input {
-  export type KeySourceActions = {
-    type: 'key';
-    id: string;
-    actions: [...Input.KeySourceAction[]];
-  };
 }
 export namespace Input {
   export type KeySourceAction =
     | Input.PauseAction
     | Input.KeyDownAction
     | Input.KeyUpAction;
-}
-export namespace Input {
-  export type PointerSourceActions = {
-    type: 'pointer';
-    id: string;
-    parameters?: Input.PointerParameters;
-    actions: [...Input.PointerSourceAction[]];
-  };
 }
 export namespace Input {
   export const enum PointerType {
@@ -2523,18 +2523,18 @@ export namespace Input {
   };
 }
 export namespace Input {
-  export type PointerSourceAction =
-    | Input.PauseAction
-    | Input.PointerDownAction
-    | Input.PointerUpAction
-    | Input.PointerMoveAction;
-}
-export namespace Input {
   export type WheelSourceActions = {
     type: 'wheel';
     id: string;
     actions: [...Input.WheelSourceAction[]];
   };
+}
+export namespace Input {
+  export type PointerSourceAction =
+    | Input.PauseAction
+    | Input.PointerDownAction
+    | Input.PointerUpAction
+    | Input.PointerMoveAction;
 }
 export namespace Input {
   export type WheelSourceAction = Input.PauseAction | Input.WheelScrollAction;
@@ -2676,14 +2676,14 @@ export namespace WebExtension {
   export type Extension = string;
 }
 export namespace WebExtension {
-  export type Install = {
-    method: 'webExtension.install';
-    params: WebExtension.InstallParameters;
+  export type InstallParameters = {
+    extensionData: WebExtension.ExtensionData;
   };
 }
 export namespace WebExtension {
-  export type InstallParameters = {
-    extensionData: WebExtension.ExtensionData;
+  export type Install = {
+    method: 'webExtension.install';
+    params: WebExtension.InstallParameters;
   };
 }
 export namespace WebExtension {
