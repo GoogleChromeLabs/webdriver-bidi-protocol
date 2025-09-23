@@ -7,6 +7,7 @@
 import {Project, Type, TypeFormatFlags} from 'ts-morph';
 import * as path from 'path';
 import {
+  getResultNameFromMethod,
   getTypeInNamespaceOrThrow,
   type MappingInterface,
   type SpecType,
@@ -76,7 +77,15 @@ for (const spec of specs) {
       TypeFormatFlags.None,
     );
 
-    let expectedResultTypeName = paramsTypeString.replace('Params', 'Result');
+    let prefix = spec.modulePrefix;
+    let expectedResultTypeName = paramsTypeString.replace(
+      'Parameters',
+      'Result',
+    );
+
+    if (paramsTypeString.includes('Extensible')) {
+      expectedResultTypeName = getResultNameFromMethod(methodString);
+    }
 
     try {
       // Usually we get something like `BrowsingContext.GetTreeResult`
@@ -87,6 +96,7 @@ for (const spec of specs) {
         apiIndexFile.getTypeAliasOrThrow(expectedResultTypeName);
       } catch {
         // Default to EmptyResult
+        prefix = `Bidi`;
         expectedResultTypeName = `EmptyResult`;
       }
     }
@@ -94,7 +104,7 @@ for (const spec of specs) {
     commandMappingEntries.push({
       method: methodString,
       params: `${spec.modulePrefix}.${paramsTypeString}`,
-      resultType: `${spec.modulePrefix}.${expectedResultTypeName}`,
+      resultType: `${prefix}.${expectedResultTypeName}`,
     });
   }
 }
