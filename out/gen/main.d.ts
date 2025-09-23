@@ -198,10 +198,6 @@ export declare namespace Session {
 export declare namespace Session {
   type UnsubscribeByAttributesRequest = {
     events: [string, ...string[]];
-    contexts?: [
-      BrowsingContext.BrowsingContext,
-      ...BrowsingContext.BrowsingContext[],
-    ];
   };
 }
 export declare namespace Session {
@@ -277,7 +273,8 @@ export type BrowserCommand =
   | Browser.GetClientWindows
   | Browser.GetUserContexts
   | Browser.RemoveUserContext
-  | Browser.SetClientWindowState;
+  | Browser.SetClientWindowState
+  | Browser.SetDownloadBehavior;
 export type BrowserResult =
   | Browser.CreateUserContextResult
   | Browser.GetUserContextsResult;
@@ -381,6 +378,34 @@ export declare namespace Browser {
     height?: JsUint;
     x?: JsInt;
     y?: JsInt;
+  };
+}
+export declare namespace Browser {
+  type SetDownloadBehavior = {
+    method: 'browser.setDownloadBehavior';
+    params: Browser.SetDownloadBehaviorParameters;
+  };
+}
+export declare namespace Browser {
+  type SetDownloadBehaviorParameters = {
+    downloadBehavior: Browser.DownloadBehavior | null;
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
+export declare namespace Browser {
+  type DownloadBehavior =
+    | Browser.DownloadBehaviorAllowed
+    | Browser.DownloadBehaviorDenied;
+}
+export declare namespace Browser {
+  type DownloadBehaviorAllowed = {
+    type: 'allowed';
+    destinationFolder?: string;
+  };
+}
+export declare namespace Browser {
+  type DownloadBehaviorDenied = {
+    type: 'denied';
   };
 }
 export type BrowsingContextCommand =
