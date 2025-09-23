@@ -15,11 +15,13 @@ import {
 
 const rootDir = path.resolve(import.meta.dirname, '..');
 
+const MAIN_SPEC_PREFIX = 'Bidi';
+
 const specs: SpecType[] = [
   {
     inputFile: './main.ts',
     commandType: 'CommandData',
-    modulePrefix: 'Bidi',
+    modulePrefix: MAIN_SPEC_PREFIX,
   },
   {
     inputFile: './permissions.ts',
@@ -83,6 +85,8 @@ for (const spec of specs) {
       'Result',
     );
 
+    // We need to infer from methods
+    // TODO: See if this is needed as a fallback always
     if (paramsTypeString.includes('Extensible')) {
       expectedResultTypeName = getResultNameFromMethod(methodString);
     }
@@ -95,8 +99,9 @@ for (const spec of specs) {
         // Maybe it was not inside an Namespace try on the module scope
         apiIndexFile.getTypeAliasOrThrow(expectedResultTypeName);
       } catch {
+        // The EmptyResult is only available on the main spec
+        prefix = MAIN_SPEC_PREFIX;
         // Default to EmptyResult
-        prefix = `Bidi`;
         expectedResultTypeName = `EmptyResult`;
       }
     }
