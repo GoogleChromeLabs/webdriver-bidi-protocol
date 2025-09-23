@@ -74,6 +74,10 @@ export interface CommandMapping {
     params: Bidi.Browser.SetClientWindowStateParameters;
     returnType: Bidi.Browser.SetClientWindowStateParameters;
   };
+  'browser.setDownloadBehavior': {
+    params: Bidi.Browser.SetDownloadBehaviorParameters;
+    returnType: Bidi.Browser.SetDownloadBehaviorParameters;
+  };
   'browsingContext.activate': {
     params: Bidi.BrowsingContext.ActivateParameters;
     returnType: Bidi.BrowsingContext.ActivateParameters;
