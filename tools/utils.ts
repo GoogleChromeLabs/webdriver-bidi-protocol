@@ -52,3 +52,11 @@ export function getTypeInNamespaceOrThrow(
 
   throw new Error('Not found');
 }
+
+export function getResultNameFromMethod(method: string) {
+  const type = method
+    .split('.')
+    .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+    .join('.');
+  return `${type}Result`;
+}

@@ -7,6 +7,7 @@
 import {Project, Type, TypeFormatFlags} from 'ts-morph';
 import * as path from 'path';
 import {
+  getResultNameFromMethod,
   getTypeInNamespaceOrThrow,
   type MappingInterface,
   type SpecType,
@@ -14,11 +15,13 @@ import {
 
 const rootDir = path.resolve(import.meta.dirname, '..');
 
+const MAIN_SPEC_PREFIX = 'Bidi';
+
 const specs: SpecType[] = [
   {
     inputFile: './main.ts',
     commandType: 'CommandData',
-    modulePrefix: 'Bidi',
+    modulePrefix: MAIN_SPEC_PREFIX,
   },
   {
     inputFile: './permissions.ts',
@@ -76,7 +79,17 @@ for (const spec of specs) {
       TypeFormatFlags.None,
     );
 
-    let expectedResultTypeName = paramsTypeString.replace('Params', 'Result');
+    let prefix = spec.modulePrefix;
+    let expectedResultTypeName = paramsTypeString.replace(
+      'Parameters',
+      'Result',
+    );
+
+    // We need to infer from methods
+    // TODO: See if this is needed as a fallback always
+    if (paramsTypeString.includes('Extensible')) {
+      expectedResultTypeName = getResultNameFromMethod(methodString);
+    }
 
     try {
       // Usually we get something like `BrowsingContext.GetTreeResult`
@@ -86,6 +99,8 @@ for (const spec of specs) {
         // Maybe it was not inside an Namespace try on the module scope
         apiIndexFile.getTypeAliasOrThrow(expectedResultTypeName);
       } catch {
+        // The EmptyResult is only available on the main spec
+        prefix = MAIN_SPEC_PREFIX;
         // Default to EmptyResult
         expectedResultTypeName = `EmptyResult`;
       }
@@ -94,7 +109,7 @@ for (const spec of specs) {
     commandMappingEntries.push({
       method: methodString,
       params: `${spec.modulePrefix}.${paramsTypeString}`,
-      resultType: `${spec.modulePrefix}.${expectedResultTypeName}`,
+      resultType: `${prefix}.${expectedResultTypeName}`,
     });
   }
 }
