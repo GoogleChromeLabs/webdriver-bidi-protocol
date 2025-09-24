@@ -400,7 +400,7 @@ export declare namespace Browser {
 export declare namespace Browser {
   type DownloadBehaviorAllowed = {
     type: 'allowed';
-    destinationFolder?: string;
+    destinationFolder: string;
   };
 }
 export declare namespace Browser {
@@ -1666,7 +1666,8 @@ export type ScriptCommand =
 export type ScriptResult =
   | Script.AddPreloadScriptResult
   | Script.EvaluateResult
-  | Script.GetRealmsResult;
+  | Script.GetRealmsResult
+  | Script.CallFunctionResult;
 export type ScriptEvent =
   | Script.Message
   | Script.RealmCreated
@@ -2233,6 +2234,9 @@ export declare namespace Script {
      */
     userActivation?: boolean;
   };
+}
+export declare namespace Script {
+  type CallFunctionResult = Script.EvaluateResult;
 }
 export declare namespace Script {
   type Evaluate = {

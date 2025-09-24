@@ -229,7 +229,7 @@ export interface CommandMapping {
   };
   'script.callFunction': {
     params: Bidi.Script.CallFunctionParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Script.CallFunctionResult;
   };
   'script.disown': {
     params: Bidi.Script.DisownParameters;
