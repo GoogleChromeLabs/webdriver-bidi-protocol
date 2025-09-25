@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.5](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.3.4...webdriver-bidi-protocol-v0.3.5) (2025-09-25)
+
+
+### Bug Fixes
+
+* rename mapping back to Commands ([#264](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/264)) ([a7b19c3](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/a7b19c3b173f268beef870449bfad714952dd478))
+
 ## [0.3.4](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.3.3...webdriver-bidi-protocol-v0.3.4) (2025-09-25)
 
 
