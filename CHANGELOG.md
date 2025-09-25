@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.4](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.3.3...webdriver-bidi-protocol-v0.3.4) (2025-09-25)
+
+
+### Bug Fixes
+
+* generation should not emit ts imports ([#262](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/262)) ([74bf1ad](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/74bf1adb89582b073fa8741ddf3680549dada469))
+
 ## [0.3.3](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.3.2...webdriver-bidi-protocol-v0.3.3) (2025-09-25)
 
 
