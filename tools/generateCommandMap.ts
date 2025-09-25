@@ -122,7 +122,7 @@ const generatedFile = project.createSourceFile(outputPath, '', {
 
 for (const spec of specs) {
   generatedFile.addImportDeclaration({
-    moduleSpecifier: spec.inputFile,
+    moduleSpecifier: spec.inputFile.replace('.ts', '.js'),
     isTypeOnly: true,
     namespaceImport: spec.modulePrefix,
   });
