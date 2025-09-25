@@ -52,7 +52,7 @@ export interface Commands {
   };
   'browser.close': {
     params: Bidi.Extensible;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Browser.CloseResult;
   };
   'browser.createUserContext': {
     params: Bidi.Browser.CreateUserContextParameters;
@@ -68,19 +68,19 @@ export interface Commands {
   };
   'browser.removeUserContext': {
     params: Bidi.Browser.RemoveUserContextParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Browser.RemoveUserContextResult;
   };
   'browser.setClientWindowState': {
     params: Bidi.Browser.SetClientWindowStateParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Browser.SetClientWindowStateResult;
   };
   'browser.setDownloadBehavior': {
     params: Bidi.Browser.SetDownloadBehaviorParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Browser.SetDownloadBehaviorResult;
   };
   'browsingContext.activate': {
     params: Bidi.BrowsingContext.ActivateParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.BrowsingContext.ActivateResult;
   };
   'browsingContext.captureScreenshot': {
     params: Bidi.BrowsingContext.CaptureScreenshotParameters;
@@ -88,7 +88,7 @@ export interface Commands {
   };
   'browsingContext.close': {
     params: Bidi.BrowsingContext.CloseParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.BrowsingContext.CloseResult;
   };
   'browsingContext.create': {
     params: Bidi.BrowsingContext.CreateParameters;
@@ -100,7 +100,7 @@ export interface Commands {
   };
   'browsingContext.handleUserPrompt': {
     params: Bidi.BrowsingContext.HandleUserPromptParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.BrowsingContext.HandleUserPromptResult;
   };
   'browsingContext.locateNodes': {
     params: Bidi.BrowsingContext.LocateNodesParameters;
@@ -116,11 +116,11 @@ export interface Commands {
   };
   'browsingContext.reload': {
     params: Bidi.BrowsingContext.ReloadParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.BrowsingContext.ReloadResult;
   };
   'browsingContext.setViewport': {
     params: Bidi.BrowsingContext.SetViewportParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.BrowsingContext.SetViewportResult;
   };
   'browsingContext.traverseHistory': {
     params: Bidi.BrowsingContext.TraverseHistoryParameters;
@@ -128,43 +128,43 @@ export interface Commands {
   };
   'emulation.setForcedColorsModeThemeOverride': {
     params: Bidi.Emulation.SetForcedColorsModeThemeOverrideParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Emulation.SetForcedColorsModeThemeOverrideResult;
   };
   'emulation.setGeolocationOverride': {
     params: Bidi.Emulation.SetGeolocationOverrideParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Emulation.SetGeolocationOverrideResult;
   };
   'emulation.setLocaleOverride': {
     params: Bidi.Emulation.SetLocaleOverrideParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Emulation.SetLocaleOverrideResult;
   };
   'emulation.setScreenOrientationOverride': {
     params: Bidi.Emulation.SetScreenOrientationOverrideParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Emulation.SetScreenOrientationOverrideResult;
   };
   'emulation.setScriptingEnabled': {
     params: Bidi.Emulation.SetScriptingEnabledParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Emulation.SetScriptingEnabledResult;
   };
   'emulation.setTimezoneOverride': {
     params: Bidi.Emulation.SetTimezoneOverrideParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Emulation.SetTimezoneOverrideResult;
   };
   'emulation.setUserAgentOverride': {
     params: Bidi.Emulation.SetUserAgentOverrideParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Emulation.SetUserAgentOverrideResult;
   };
   'input.performActions': {
     params: Bidi.Input.PerformActionsParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Input.PerformActionsResult;
   };
   'input.releaseActions': {
     params: Bidi.Input.ReleaseActionsParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Input.ReleaseActionsResult;
   };
   'input.setFiles': {
     params: Bidi.Input.SetFilesParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Input.SetFilesResult;
   };
   'network.addDataCollector': {
     params: Bidi.Network.AddDataCollectorParameters;
@@ -176,23 +176,23 @@ export interface Commands {
   };
   'network.continueRequest': {
     params: Bidi.Network.ContinueRequestParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.ContinueRequestResult;
   };
   'network.continueResponse': {
     params: Bidi.Network.ContinueResponseParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.ContinueResponseResult;
   };
   'network.continueWithAuth': {
     params: Bidi.Network.ContinueWithAuthParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.ContinueWithAuthResult;
   };
   'network.disownData': {
     params: Bidi.Network.DisownDataParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.DisownDataResult;
   };
   'network.failRequest': {
     params: Bidi.Network.FailRequestParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.FailRequestResult;
   };
   'network.getData': {
     params: Bidi.Network.GetDataParameters;
@@ -200,23 +200,23 @@ export interface Commands {
   };
   'network.provideResponse': {
     params: Bidi.Network.ProvideResponseParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.ProvideResponseResult;
   };
   'network.removeDataCollector': {
     params: Bidi.Network.RemoveDataCollectorParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.RemoveDataCollectorResult;
   };
   'network.removeIntercept': {
     params: Bidi.Network.RemoveInterceptParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.RemoveInterceptResult;
   };
   'network.setCacheBehavior': {
     params: Bidi.Network.SetCacheBehaviorParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.SetCacheBehaviorResult;
   };
   'network.setExtraHeaders': {
     params: Bidi.Network.SetExtraHeadersParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Network.SetExtraHeadersResult;
   };
   'permissions.setPermission': {
     params: BidiPermissions.Permissions.SetPermissionParameters;
@@ -232,7 +232,7 @@ export interface Commands {
   };
   'script.disown': {
     params: Bidi.Script.DisownParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Script.DisownResult;
   };
   'script.evaluate': {
     params: Bidi.Script.EvaluateParameters;
@@ -244,11 +244,11 @@ export interface Commands {
   };
   'script.removePreloadScript': {
     params: Bidi.Script.RemovePreloadScriptParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Script.RemovePreloadScriptResult;
   };
   'session.end': {
     params: Bidi.Extensible;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Session.EndResult;
   };
   'session.new': {
     params: Bidi.Session.NewParameters;
@@ -264,7 +264,7 @@ export interface Commands {
   };
   'session.unsubscribe': {
     params: Bidi.Session.UnsubscribeParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.Session.UnsubscribeResult;
   };
   'storage.deleteCookies': {
     params: Bidi.Storage.DeleteCookiesParameters;
@@ -284,6 +284,6 @@ export interface Commands {
   };
   'webExtension.uninstall': {
     params: Bidi.WebExtension.UninstallParameters;
-    returnType: Bidi.EmptyResult;
+    returnType: Bidi.WebExtension.UninstallResult;
   };
 }

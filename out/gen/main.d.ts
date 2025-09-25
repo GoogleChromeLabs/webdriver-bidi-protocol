@@ -27,8 +27,10 @@ export type ErrorResponse = {
   stacktrace?: string;
 } & Extensible;
 export type ResultData =
+  | BrowserResult
   | BrowsingContextResult
-  | EmptyResult
+  | EmulationResult
+  | InputResult
   | NetworkResult
   | ScriptResult
   | SessionResult
@@ -94,9 +96,11 @@ export type SessionCommand =
   | Session.Subscribe
   | Session.Unsubscribe;
 export type SessionResult =
+  | Session.EndResult
   | Session.NewResult
   | Session.StatusResult
-  | Session.SubscribeResult;
+  | Session.SubscribeResult
+  | Session.UnsubscribeResult;
 export declare namespace Session {
   type CapabilitiesRequest = {
     alwaysMatch?: Session.CapabilityRequest;
@@ -246,6 +250,9 @@ export declare namespace Session {
   };
 }
 export declare namespace Session {
+  type EndResult = EmptyResult;
+}
+export declare namespace Session {
   type Subscribe = {
     method: 'session.subscribe';
     params: Session.SubscriptionRequest;
@@ -267,6 +274,9 @@ export declare namespace Session {
     | Session.UnsubscribeByAttributesRequest
     | Session.UnsubscribeByIdRequest;
 }
+export declare namespace Session {
+  type UnsubscribeResult = EmptyResult;
+}
 export type BrowserCommand =
   | Browser.Close
   | Browser.CreateUserContext
@@ -276,8 +286,13 @@ export type BrowserCommand =
   | Browser.SetClientWindowState
   | Browser.SetDownloadBehavior;
 export type BrowserResult =
+  | Browser.CloseResult
   | Browser.CreateUserContextResult
-  | Browser.GetUserContextsResult;
+  | Browser.GetClientWindowsResult
+  | Browser.GetUserContextsResult
+  | Browser.RemoveUserContextResult
+  | Browser.SetClientWindowStateResult
+  | Browser.SetDownloadBehaviorResult;
 export declare namespace Browser {
   type ClientWindow = string;
 }
@@ -305,6 +320,9 @@ export declare namespace Browser {
     method: 'browser.close';
     params: EmptyParams;
   };
+}
+export declare namespace Browser {
+  type CloseResult = EmptyResult;
 }
 export declare namespace Browser {
   type CreateUserContext = {
@@ -356,6 +374,9 @@ export declare namespace Browser {
   };
 }
 export declare namespace Browser {
+  type RemoveUserContextResult = EmptyResult;
+}
+export declare namespace Browser {
   type SetClientWindowState = {
     method: 'browser.setClientWindowState';
     params: Browser.SetClientWindowStateParameters;
@@ -379,6 +400,9 @@ export declare namespace Browser {
     x?: JsInt;
     y?: JsInt;
   };
+}
+export declare namespace Browser {
+  type SetClientWindowStateResult = Browser.ClientWindowInfo;
 }
 export declare namespace Browser {
   type SetDownloadBehavior = {
@@ -408,6 +432,9 @@ export declare namespace Browser {
     type: 'denied';
   };
 }
+export declare namespace Browser {
+  type SetDownloadBehaviorResult = EmptyResult;
+}
 export type BrowsingContextCommand =
   | BrowsingContext.Activate
   | BrowsingContext.CaptureScreenshot
@@ -422,12 +449,17 @@ export type BrowsingContextCommand =
   | BrowsingContext.SetViewport
   | BrowsingContext.TraverseHistory;
 export type BrowsingContextResult =
+  | BrowsingContext.ActivateResult
   | BrowsingContext.CaptureScreenshotResult
+  | BrowsingContext.CloseResult
   | BrowsingContext.CreateResult
   | BrowsingContext.GetTreeResult
+  | BrowsingContext.HandleUserPromptResult
   | BrowsingContext.LocateNodesResult
   | BrowsingContext.NavigateResult
   | BrowsingContext.PrintResult
+  | BrowsingContext.ReloadResult
+  | BrowsingContext.SetViewportResult
   | BrowsingContext.TraverseHistoryResult;
 export type BrowsingContextEvent =
   | BrowsingContext.ContextCreated
@@ -548,6 +580,9 @@ export declare namespace BrowsingContext {
   };
 }
 export declare namespace BrowsingContext {
+  type ActivateResult = EmptyResult;
+}
+export declare namespace BrowsingContext {
   type CaptureScreenshot = {
     method: 'browsingContext.captureScreenshot';
     params: BrowsingContext.CaptureScreenshotParameters;
@@ -614,6 +649,9 @@ export declare namespace BrowsingContext {
   };
 }
 export declare namespace BrowsingContext {
+  type CloseResult = EmptyResult;
+}
+export declare namespace BrowsingContext {
   type Create = {
     method: 'browsingContext.create';
     params: BrowsingContext.CreateParameters;
@@ -670,6 +708,9 @@ export declare namespace BrowsingContext {
     accept?: boolean;
     userText?: string;
   };
+}
+export declare namespace BrowsingContext {
+  type HandleUserPromptResult = EmptyResult;
 }
 export declare namespace BrowsingContext {
   type LocateNodes = {
@@ -808,6 +849,9 @@ export declare namespace BrowsingContext {
   };
 }
 export declare namespace BrowsingContext {
+  type ReloadResult = BrowsingContext.NavigateResult;
+}
+export declare namespace BrowsingContext {
   type SetViewport = {
     method: 'browsingContext.setViewport';
     params: BrowsingContext.SetViewportParameters;
@@ -831,6 +875,9 @@ export declare namespace BrowsingContext {
   };
 }
 export declare namespace BrowsingContext {
+  type SetViewportResult = EmptyResult;
+}
+export declare namespace BrowsingContext {
   type TraverseHistory = {
     method: 'browsingContext.traverseHistory';
     params: BrowsingContext.TraverseHistoryParameters;
@@ -843,7 +890,7 @@ export declare namespace BrowsingContext {
   };
 }
 export declare namespace BrowsingContext {
-  type TraverseHistoryResult = Record<string, never>;
+  type TraverseHistoryResult = EmptyResult;
 }
 export declare namespace BrowsingContext {
   type ContextCreated = {
@@ -982,6 +1029,14 @@ export type EmulationCommand =
   | Emulation.SetScriptingEnabled
   | Emulation.SetTimezoneOverride
   | Emulation.SetUserAgentOverride;
+export type EmulationResult =
+  | Emulation.SetForcedColorsModeThemeOverrideResult
+  | Emulation.SetGeolocationOverrideResult
+  | Emulation.SetLocaleOverrideResult
+  | Emulation.SetScreenOrientationOverrideResult
+  | Emulation.SetScriptingEnabledResult
+  | Emulation.SetTimezoneOverrideResult
+  | Emulation.SetUserAgentOverrideResult;
 export declare namespace Emulation {
   type SetForcedColorsModeThemeOverride = {
     method: 'emulation.setForcedColorsModeThemeOverride';
@@ -1003,6 +1058,9 @@ export declare namespace Emulation {
     Light = 'light',
     Dark = 'dark',
   }
+}
+export declare namespace Emulation {
+  type SetForcedColorsModeThemeOverrideResult = EmptyResult;
 }
 export declare namespace Emulation {
   type SetGeolocationOverride = {
@@ -1072,6 +1130,9 @@ export declare namespace Emulation {
   };
 }
 export declare namespace Emulation {
+  type SetGeolocationOverrideResult = EmptyResult;
+}
+export declare namespace Emulation {
   type SetLocaleOverride = {
     method: 'emulation.setLocaleOverride';
     params: Emulation.SetLocaleOverrideParameters;
@@ -1086,6 +1147,9 @@ export declare namespace Emulation {
     ];
     userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
   };
+}
+export declare namespace Emulation {
+  type SetLocaleOverrideResult = EmptyResult;
 }
 export declare namespace Emulation {
   type SetScreenOrientationOverride = {
@@ -1123,6 +1187,9 @@ export declare namespace Emulation {
   };
 }
 export declare namespace Emulation {
+  type SetScreenOrientationOverrideResult = EmptyResult;
+}
+export declare namespace Emulation {
   type SetUserAgentOverride = {
     method: 'emulation.setUserAgentOverride';
     params: Emulation.SetUserAgentOverrideParameters;
@@ -1137,6 +1204,9 @@ export declare namespace Emulation {
     ];
     userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
   };
+}
+export declare namespace Emulation {
+  type SetUserAgentOverrideResult = EmptyResult;
 }
 export declare namespace Emulation {
   type SetScriptingEnabled = {
@@ -1155,6 +1225,9 @@ export declare namespace Emulation {
   };
 }
 export declare namespace Emulation {
+  type SetScriptingEnabledResult = EmptyResult;
+}
+export declare namespace Emulation {
   type SetTimezoneOverride = {
     method: 'emulation.setTimezoneOverride';
     params: Emulation.SetTimezoneOverrideParameters;
@@ -1170,6 +1243,9 @@ export declare namespace Emulation {
     userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
   };
 }
+export declare namespace Emulation {
+  type SetTimezoneOverrideResult = EmptyResult;
+}
 export type NetworkCommand =
   | Network.AddDataCollector
   | Network.AddIntercept
@@ -1184,7 +1260,20 @@ export type NetworkCommand =
   | Network.RemoveIntercept
   | Network.SetCacheBehavior
   | Network.SetExtraHeaders;
-export type NetworkResult = Network.AddInterceptResult;
+export type NetworkResult =
+  | Network.AddDataCollectorResult
+  | Network.AddInterceptResult
+  | Network.ContinueRequestResult
+  | Network.ContinueResponseResult
+  | Network.ContinueWithAuthResult
+  | Network.DisownDataResult
+  | Network.FailRequestResult
+  | Network.GetDataResult
+  | Network.ProvideResponseResult
+  | Network.RemoveDataCollectorResult
+  | Network.RemoveInterceptResult
+  | Network.SetCacheBehaviorResult
+  | Network.SetExtraHeadersResult;
 export type NetworkEvent =
   | Network.AuthRequired
   | Network.BeforeRequestSent
@@ -1446,6 +1535,9 @@ export declare namespace Network {
   };
 }
 export declare namespace Network {
+  type ContinueRequestResult = EmptyResult;
+}
+export declare namespace Network {
   type ContinueResponse = {
     method: 'network.continueResponse';
     params: Network.ContinueResponseParameters;
@@ -1460,6 +1552,9 @@ export declare namespace Network {
     reasonPhrase?: string;
     statusCode?: JsUint;
   };
+}
+export declare namespace Network {
+  type ContinueResponseResult = EmptyResult;
 }
 export declare namespace Network {
   type ContinueWithAuth = {
@@ -1487,6 +1582,9 @@ export declare namespace Network {
   };
 }
 export declare namespace Network {
+  type ContinueWithAuthResult = EmptyResult;
+}
+export declare namespace Network {
   type DisownData = {
     method: 'network.disownData';
     params: Network.DisownDataParameters;
@@ -1500,6 +1598,9 @@ export declare namespace Network {
   };
 }
 export declare namespace Network {
+  type DisownDataResult = EmptyResult;
+}
+export declare namespace Network {
   type FailRequest = {
     method: 'network.failRequest';
     params: Network.FailRequestParameters;
@@ -1509,6 +1610,9 @@ export declare namespace Network {
   type FailRequestParameters = {
     request: Network.Request;
   };
+}
+export declare namespace Network {
+  type FailRequestResult = EmptyResult;
 }
 export declare namespace Network {
   type GetData = {
@@ -1549,6 +1653,9 @@ export declare namespace Network {
   };
 }
 export declare namespace Network {
+  type ProvideResponseResult = EmptyResult;
+}
+export declare namespace Network {
   type RemoveDataCollector = {
     method: 'network.removeDataCollector';
     params: Network.RemoveDataCollectorParameters;
@@ -1560,6 +1667,9 @@ export declare namespace Network {
   };
 }
 export declare namespace Network {
+  type RemoveDataCollectorResult = EmptyResult;
+}
+export declare namespace Network {
   type RemoveIntercept = {
     method: 'network.removeIntercept';
     params: Network.RemoveInterceptParameters;
@@ -1569,6 +1679,9 @@ export declare namespace Network {
   type RemoveInterceptParameters = {
     intercept: Network.Intercept;
   };
+}
+export declare namespace Network {
+  type RemoveInterceptResult = EmptyResult;
 }
 export declare namespace Network {
   type SetCacheBehavior = {
@@ -1586,6 +1699,9 @@ export declare namespace Network {
   };
 }
 export declare namespace Network {
+  type SetCacheBehaviorResult = EmptyResult;
+}
+export declare namespace Network {
   type SetExtraHeaders = {
     method: 'network.setExtraHeaders';
     params: Network.SetExtraHeadersParameters;
@@ -1600,6 +1716,9 @@ export declare namespace Network {
     ];
     userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
   };
+}
+export declare namespace Network {
+  type SetExtraHeadersResult = EmptyResult;
 }
 export declare namespace Network {
   type AuthRequired = {
@@ -1665,9 +1784,11 @@ export type ScriptCommand =
   | Script.RemovePreloadScript;
 export type ScriptResult =
   | Script.AddPreloadScriptResult
+  | Script.CallFunctionResult
+  | Script.DisownResult
   | Script.EvaluateResult
   | Script.GetRealmsResult
-  | Script.CallFunctionResult;
+  | Script.RemovePreloadScriptResult;
 export type ScriptEvent =
   | Script.Message
   | Script.RealmCreated
@@ -2215,6 +2336,9 @@ export declare namespace Script {
   };
 }
 export declare namespace Script {
+  type DisownResult = EmptyResult;
+}
+export declare namespace Script {
   type CallFunction = {
     method: 'script.callFunction';
     params: Script.CallFunctionParameters;
@@ -2284,6 +2408,9 @@ export declare namespace Script {
   type RemovePreloadScriptParameters = {
     script: Script.PreloadScript;
   };
+}
+export declare namespace Script {
+  type RemovePreloadScriptResult = EmptyResult;
 }
 export declare namespace Script {
   type Message = {
@@ -2475,6 +2602,10 @@ export type InputCommand =
   | Input.PerformActions
   | Input.ReleaseActions
   | Input.SetFiles;
+export type InputResult =
+  | Input.PerformActionsResult
+  | Input.ReleaseActionsResult
+  | Input.SetFilesResult;
 export type InputEvent = Input.FileDialogOpened;
 export declare namespace Input {
   type ElementOrigin = {
@@ -2659,6 +2790,9 @@ export declare namespace Input {
   type Origin = 'viewport' | 'pointer' | Input.ElementOrigin;
 }
 export declare namespace Input {
+  type PerformActionsResult = EmptyResult;
+}
+export declare namespace Input {
   type ReleaseActions = {
     method: 'input.releaseActions';
     params: Input.ReleaseActionsParameters;
@@ -2668,6 +2802,9 @@ export declare namespace Input {
   type ReleaseActionsParameters = {
     context: BrowsingContext.BrowsingContext;
   };
+}
+export declare namespace Input {
+  type ReleaseActionsResult = EmptyResult;
 }
 export declare namespace Input {
   type SetFiles = {
@@ -2683,6 +2820,9 @@ export declare namespace Input {
   };
 }
 export declare namespace Input {
+  type SetFilesResult = EmptyResult;
+}
+export declare namespace Input {
   type FileDialogOpened = {
     method: 'input.fileDialogOpened';
     params: Input.FileDialogInfo;
@@ -2696,7 +2836,9 @@ export declare namespace Input {
   };
 }
 export type WebExtensionCommand = WebExtension.Install | WebExtension.Uninstall;
-export type WebExtensionResult = WebExtension.InstallResult;
+export type WebExtensionResult =
+  | WebExtension.InstallResult
+  | WebExtension.UninstallResult;
 export declare namespace WebExtension {
   type Extension = string;
 }
@@ -2750,4 +2892,7 @@ export declare namespace WebExtension {
   type UninstallParameters = {
     extension: WebExtension.Extension;
   };
+}
+export declare namespace WebExtension {
+  type UninstallResult = EmptyResult;
 }
