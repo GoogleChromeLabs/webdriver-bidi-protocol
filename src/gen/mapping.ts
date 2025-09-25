@@ -1,6 +1,6 @@
-import type * as Bidi from './main.ts';
-import type * as BidiPermissions from './permissions.ts';
-import type * as BidiBluetooth from './web-bluetooth.ts';
+import type * as Bidi from './main.js';
+import type * as BidiPermissions from './permissions.js';
+import type * as BidiBluetooth from './web-bluetooth.js';
 
 export interface CommandMapping {
   'bluetooth.disableSimulation': {
