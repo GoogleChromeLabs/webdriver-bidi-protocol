@@ -12,7 +12,7 @@ export * from './gen/main.js';
 export * from './gen/permissions.js';
 export * from './gen/web-bluetooth.js';
 
-export type {CommandMapping} from './gen/mapping.js';
+export * from './gen/mapping.js';
 
 type ExternalSpecCommand<T> = {
   // id is defined by the main WebDriver BiDi spec and extension specs do

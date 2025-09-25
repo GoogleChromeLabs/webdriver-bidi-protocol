@@ -129,7 +129,7 @@ for (const spec of specs) {
 }
 
 const mapInterface = generatedFile.addInterface({
-  name: 'CommandMapping',
+  name: 'Commands',
   isExported: true,
 });
 
