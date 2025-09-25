@@ -2,7 +2,7 @@ import type * as Bidi from './main.js';
 import type * as BidiPermissions from './permissions.js';
 import type * as BidiBluetooth from './web-bluetooth.js';
 
-export interface CommandMapping {
+export interface Commands {
   'bluetooth.disableSimulation': {
     params: BidiBluetooth.Bluetooth.DisableSimulationParameters;
     returnType: Bidi.EmptyResult;
