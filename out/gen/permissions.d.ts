@@ -22,6 +22,7 @@ export declare namespace Permissions {
     descriptor: Permissions.PermissionDescriptor;
     state: Permissions.PermissionState;
     origin: string;
+    topLevelOrigin?: string;
     userContext?: string;
   };
 }
