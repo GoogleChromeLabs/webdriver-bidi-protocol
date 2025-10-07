@@ -4,11 +4,8 @@
   "description": "",
   "main": "out/index.js",
   "types": "out/index.d.ts",
-  "keywords": [
-    "webdriver",
-    "bidi",
-    "protocol"
-  ],
+  "files": ["out/**/*", "src/**/*", "CHANGELOG.md"],
+  "keywords": ["webdriver", "bidi", "protocol"],
   "author": "The Chromium Authors",
   "license": "Apache-2.0",
   "scripts": {
