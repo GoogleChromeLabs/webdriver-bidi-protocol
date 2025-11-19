@@ -106,6 +106,10 @@ for (const spec of specs) {
       }
     }
 
+    if (!expectedResultTypeName.endsWith('Result')) {
+      throw new Error(`Unexpected params type ${paramsTypeString} of ${methodString}`)
+    }
+
     commandMappingEntries.push({
       method: methodString,
       params: `${spec.modulePrefix}.${paramsTypeString}`,
