@@ -7,15 +7,13 @@
 import {Project, Type, TypeFormatFlags} from 'ts-morph';
 import * as path from 'path';
 import {
-  getResultNameFromMethod,
-  getTypeInNamespaceOrThrow,
+  getResultWithFallbacks,
+  MAIN_SPEC_PREFIX,
   type MappingInterface,
   type SpecType,
 } from './utils.ts';
 
 const rootDir = path.resolve(import.meta.dirname, '..');
-
-const MAIN_SPEC_PREFIX = 'Bidi';
 
 const specs: SpecType[] = [
   {
@@ -57,10 +55,7 @@ for (const spec of specs) {
   for (const unionMember of types) {
     const methodProp = unionMember.getProperty('method');
     if (!methodProp) {
-      // If not method is found continue.
-      // For some reason the Bluetooth spec has Record<string,never>
-      // TODO: fix it upstream
-      continue;
+      throw new Error(`No method property found ${unionMember.getText()}`);
     }
 
     const methodType = methodProp.getTypeAtLocation(commandType);
@@ -79,37 +74,17 @@ for (const spec of specs) {
       TypeFormatFlags.None,
     );
 
-    let prefix = spec.modulePrefix;
-    let expectedResultTypeName = paramsTypeString.replace(
-      'Parameters',
-      'Result',
+    const resultType = getResultWithFallbacks(
+      apiIndexFile,
+      methodString,
+      paramsTypeString,
+      spec.modulePrefix,
     );
-
-    // We need to infer from methods
-    // TODO: See if this is needed as a fallback always
-    if (paramsTypeString.includes('Extensible')) {
-      expectedResultTypeName = getResultNameFromMethod(methodString);
-    }
-
-    try {
-      // Usually we get something like `BrowsingContext.GetTreeResult`
-      getTypeInNamespaceOrThrow(apiIndexFile, expectedResultTypeName);
-    } catch {
-      try {
-        // Maybe it was not inside an Namespace try on the module scope
-        apiIndexFile.getTypeAliasOrThrow(expectedResultTypeName);
-      } catch {
-        // The EmptyResult is only available on the main spec
-        prefix = MAIN_SPEC_PREFIX;
-        // Default to EmptyResult
-        expectedResultTypeName = `EmptyResult`;
-      }
-    }
 
     commandMappingEntries.push({
       method: methodString,
       params: `${spec.modulePrefix}.${paramsTypeString}`,
-      resultType: `${prefix}.${expectedResultTypeName}`,
+      resultType: resultType,
     });
   }
 }
