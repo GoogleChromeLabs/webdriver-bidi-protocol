@@ -187,7 +187,7 @@ export namespace Session {
   export type Subscription = string;
 }
 export namespace Session {
-  export type SubscriptionRequest = {
+  export type SubscriptionParameters = {
     events: [string, ...string[]];
     contexts?: [
       BrowsingContext.BrowsingContext,
@@ -257,7 +257,7 @@ export namespace Session {
 export namespace Session {
   export type Subscribe = {
     method: 'session.subscribe';
-    params: Session.SubscriptionRequest;
+    params: Session.SubscriptionParameters;
   };
 }
 export namespace Session {
