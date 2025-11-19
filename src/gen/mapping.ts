@@ -264,8 +264,8 @@ export interface Commands {
     returnType: Bidi.Session.StatusResult;
   };
   'session.subscribe': {
-    params: Bidi.Session.SubscriptionParameters;
-    returnType: Bidi.EmptyResult;
+    params: Bidi.Session.SubscribeParameters;
+    returnType: Bidi.Session.SubscribeResult;
   };
   'session.unsubscribe': {
     params: Bidi.Session.UnsubscribeParameters;
