@@ -1179,6 +1179,9 @@ export namespace Emulation {
   };
 }
 export namespace Emulation {
+  export type SetNetworkConditionsResult = EmptyResult;
+}
+export namespace Emulation {
   export type SetScreenOrientationOverride = {
     method: 'emulation.setScreenOrientationOverride';
     params: Emulation.SetScreenOrientationOverrideParameters;
