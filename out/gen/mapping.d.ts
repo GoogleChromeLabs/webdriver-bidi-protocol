@@ -146,6 +146,10 @@ export interface Commands {
     params: Bidi.Emulation.SetScreenOrientationOverrideParameters;
     returnType: Bidi.Emulation.SetScreenOrientationOverrideResult;
   };
+  'emulation.setScreenSettingsOverride': {
+    params: Bidi.Emulation.SetScreenSettingsOverrideParameters;
+    returnType: Bidi.Emulation.SetScreenSettingsOverrideResult;
+  };
   'emulation.setScriptingEnabled': {
     params: Bidi.Emulation.SetScriptingEnabledParameters;
     returnType: Bidi.Emulation.SetScriptingEnabledResult;
