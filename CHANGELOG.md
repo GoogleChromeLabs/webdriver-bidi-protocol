@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.3.11...webdriver-bidi-protocol-v0.4.0) (2026-01-20)
+
+
+### Features
+
+* add `ua-client-hints` spec support ([#313](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/313)) ([85b944b](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/85b944bc24f1408b5f9bad655898e0f7c00fe9da))
+
 ## [0.3.11](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.3.10...webdriver-bidi-protocol-v0.3.11) (2026-01-13)
 
 
