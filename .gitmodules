@@ -7,3 +7,6 @@
 [submodule "specs/web-bluetooth"]
 	path = specs/web-bluetooth
 	url = https://github.com/WebBluetoothCG/web-bluetooth.git
+[submodule "specs/ua-client-hints"]
+	path = specs/ua-client-hints
+	url = https://github.com/WICG/ua-client-hints.git
