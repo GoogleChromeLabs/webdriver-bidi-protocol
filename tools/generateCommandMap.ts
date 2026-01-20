@@ -91,6 +91,9 @@ for (const spec of specs) {
       finalParamsString = `${spec.modulePrefix}.${paramsTypeString}`;
     } else {
       if (spec.modulePrefix === 'BidiUaClientHints') {
+        // Hack for UA-CH extension spec, because it extends the `emulation`
+        // WebDriver BiDi domain and exposes `Emulation` namespace which is
+        // already exported by main spec.
         finalParamsString = paramsTypeString.replace(
           /\bEmulation\./g,
           'BidiUaClientHints.Emulation.',

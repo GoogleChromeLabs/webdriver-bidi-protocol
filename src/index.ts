@@ -12,6 +12,9 @@ import * as BidiUaClientHints from './gen/ua-client-hints.js';
 export * from './gen/main.js';
 export * from './gen/permissions.js';
 export * from './gen/web-bluetooth.js';
+// Only `UserAgentClientHintsCommand` is exported, because the UA-CH extends
+// the `emulation` WebDriver BiDi domain and exposes `Emulation` namespace
+// which is already exported by main spec.
 export {UserAgentClientHintsCommand} from './gen/ua-client-hints.js';
 export {BidiUaClientHints};
 

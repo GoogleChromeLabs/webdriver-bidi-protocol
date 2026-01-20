@@ -26,7 +26,7 @@ cddlconv specs/ua-client-hints/all.cddl > src/gen/ua-client-hints.ts
 (cd specs/web-bluetooth && git reset --hard HEAD && git clean -fd)
 (cd specs/ua-client-hints && git reset --hard HEAD && git clean -fd)
 
-git submodule deinit --all -f
+git submodule deinit --all
 
 node ./tools/generateCommandMap.ts
 npx tsc -p tsconfig.json
