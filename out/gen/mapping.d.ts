@@ -1,6 +1,7 @@
 import type * as Bidi from './main.js';
 import type * as BidiPermissions from './permissions.js';
 import type * as BidiBluetooth from './web-bluetooth.js';
+import type * as BidiUaClientHints from './ua-client-hints.js';
 export interface Commands {
   'bluetooth.disableSimulation': {
     params: BidiBluetooth.Bluetooth.DisableSimulationParameters;
@@ -125,6 +126,14 @@ export interface Commands {
   'browsingContext.traverseHistory': {
     params: Bidi.BrowsingContext.TraverseHistoryParameters;
     returnType: Bidi.BrowsingContext.TraverseHistoryResult;
+  };
+  'emulation.setClientHintsOverride': {
+    params: {
+      clientHints: BidiUaClientHints.Emulation.ClientHintsMetadata | null;
+      contexts?: [string, ...string[]];
+      userContexts?: [string, ...string[]];
+    };
+    returnType: BidiUaClientHints.Emulation.SetClientHintsOverrideResult;
   };
   'emulation.setForcedColorsModeThemeOverride': {
     params: Bidi.Emulation.SetForcedColorsModeThemeOverrideParameters;

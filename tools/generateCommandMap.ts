@@ -31,6 +31,11 @@ const specs: SpecType[] = [
     commandType: 'BluetoothCommand',
     modulePrefix: 'BidiBluetooth',
   },
+  {
+    inputFile: './ua-client-hints.ts',
+    commandType: 'UserAgentClientHintsCommand',
+    modulePrefix: 'BidiUaClientHints',
+  },
 ];
 
 const project = new Project({
@@ -81,9 +86,21 @@ for (const spec of specs) {
       spec.modulePrefix,
     );
 
+    let finalParamsString = paramsTypeString;
+    if (paramsType.getAliasSymbol()) {
+      finalParamsString = `${spec.modulePrefix}.${paramsTypeString}`;
+    } else {
+      if (spec.modulePrefix === 'BidiUaClientHints') {
+        finalParamsString = paramsTypeString.replace(
+          /\bEmulation\./g,
+          'BidiUaClientHints.Emulation.',
+        );
+      }
+    }
+
     commandMappingEntries.push({
       method: methodString,
-      params: `${spec.modulePrefix}.${paramsTypeString}`,
+      params: finalParamsString,
       resultType: resultType,
     });
   }
