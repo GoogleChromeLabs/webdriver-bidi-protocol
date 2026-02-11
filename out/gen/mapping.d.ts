@@ -127,14 +127,6 @@ export interface Commands {
     params: Bidi.BrowsingContext.TraverseHistoryParameters;
     returnType: Bidi.BrowsingContext.TraverseHistoryResult;
   };
-  'emulation.setClientHintsOverride': {
-    params: {
-      clientHints: BidiUaClientHints.Emulation.ClientHintsMetadata | null;
-      contexts?: [string, ...string[]];
-      userContexts?: [string, ...string[]];
-    };
-    returnType: BidiUaClientHints.Emulation.SetClientHintsOverrideResult;
-  };
   'emulation.setForcedColorsModeThemeOverride': {
     params: Bidi.Emulation.SetForcedColorsModeThemeOverrideParameters;
     returnType: Bidi.Emulation.SetForcedColorsModeThemeOverrideResult;
@@ -298,6 +290,14 @@ export interface Commands {
   'storage.setCookie': {
     params: Bidi.Storage.SetCookieParameters;
     returnType: Bidi.Storage.SetCookieResult;
+  };
+  'userAgentClientHints.setClientHintsOverride': {
+    params: {
+      clientHints: BidiUaClientHints.UserAgentClientHints.ClientHintsMetadata | null;
+      contexts?: [string, ...string[]];
+      userContexts?: [string, ...string[]];
+    };
+    returnType: BidiUaClientHints.UserAgentClientHints.SetClientHintsOverrideResult;
   };
   'webExtension.install': {
     params: Bidi.WebExtension.InstallParameters;
