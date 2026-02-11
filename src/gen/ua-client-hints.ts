@@ -1,19 +1,19 @@
 export type UserAgentClientHintsCommand =
-  Emulation.SetClientHintsOverrideCommand;
-export namespace Emulation {
+  UserAgentClientHints.SetClientHintsOverrideCommand;
+export namespace UserAgentClientHints {
   export type SetClientHintsOverrideCommand = {
-    method: 'emulation.setClientHintsOverride';
+    method: 'userAgentClientHints.setClientHintsOverride';
     params: {
-      clientHints: Emulation.ClientHintsMetadata | null;
+      clientHints: UserAgentClientHints.ClientHintsMetadata | null;
       contexts?: [string, ...string[]];
       userContexts?: [string, ...string[]];
     };
   };
 }
-export namespace Emulation {
+export namespace UserAgentClientHints {
   export type ClientHintsMetadata = {
-    brands?: [...Emulation.BrandVersion[]];
-    fullVersionList?: [...Emulation.BrandVersion[]];
+    brands?: [...UserAgentClientHints.BrandVersion[]];
+    fullVersionList?: [...UserAgentClientHints.BrandVersion[]];
     platform?: string;
     platformVersion?: string;
     architecture?: string;
@@ -24,12 +24,12 @@ export namespace Emulation {
     formFactors?: [...string[]];
   };
 }
-export namespace Emulation {
+export namespace UserAgentClientHints {
   export type BrandVersion = {
     brand: string;
     version: string;
   };
 }
-export namespace Emulation {
+export namespace UserAgentClientHints {
   export type SetClientHintsOverrideResult = Record<string, never>;
 }
