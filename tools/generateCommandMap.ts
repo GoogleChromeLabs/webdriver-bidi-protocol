@@ -79,6 +79,18 @@ for (const spec of specs) {
       TypeFormatFlags.None,
     );
 
+    let params = `${spec.modulePrefix}.${paramsTypeString}`;
+    if (paramsTypeString.trim().startsWith('{')) {
+      params = paramsTypeString;
+      const namespaces = apiIndexFile
+        .getModules()
+        .filter(m => m.isExported() && m.getDeclarationKind() === 'namespace');
+      const uniqueNames = new Set(namespaces.map(ns => ns.getName()));
+      for (const name of uniqueNames) {
+        params = params.split(name + '.').join(`${spec.modulePrefix}.${name}.`);
+      }
+    }
+
     const resultType = getResultWithFallbacks(
       apiIndexFile,
       methodString,
@@ -86,24 +98,9 @@ for (const spec of specs) {
       spec.modulePrefix,
     );
 
-    let finalParamsString = paramsTypeString;
-    if (paramsType.getAliasSymbol()) {
-      finalParamsString = `${spec.modulePrefix}.${paramsTypeString}`;
-    } else {
-      if (spec.modulePrefix === 'BidiUaClientHints') {
-        // Hack for UA-CH extension spec, because it extends the `emulation`
-        // WebDriver BiDi domain and exposes `Emulation` namespace which is
-        // already exported by main spec.
-        finalParamsString = paramsTypeString.replace(
-          /\bEmulation\./g,
-          'BidiUaClientHints.Emulation.',
-        );
-      }
-    }
-
     commandMappingEntries.push({
       method: methodString,
-      params: finalParamsString,
+      params: params,
       resultType: resultType,
     });
   }
