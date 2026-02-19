@@ -1,5 +1,5 @@
 version: 2
-# bump 6
+# bump 7
 updates:
   - package-ecosystem: npm
     directory: /
