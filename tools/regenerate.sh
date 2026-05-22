@@ -25,15 +25,16 @@ if ! gh auth status &> /dev/null; then
   echo "Please run 'gh auth login' first." >&2
   exit 1
 fi
-if command -v cddlconv &> /dev/null; then
+
+if ! command -v cddlconv &> /dev/null; then
+  echo "Warning: 'cddlconv' is not installed or not in PATH." >&2
+  echo "The build step might fail. You can install it using: cargo install cddlconv@0.1.7" >&2
+else
   CDDLCONV_VERSION=$(cddlconv --version 2>&1 | awk '{print $2}')
   if [ "$CDDLCONV_VERSION" != "0.1.7" ]; then
     echo "Warning: 'cddlconv' version is $CDDLCONV_VERSION, but 0.1.7 is required." >&2
     echo "You can install the correct version using: cargo install cddlconv@0.1.7" >&2
   fi
-else
-  echo "Warning: 'cddlconv' is not installed or not in PATH." >&2
-  echo "The build step might fail. You can install it using: cargo install cddlconv@0.1.7" >&2
 fi
 
 # 3. Run build/regeneration steps
