@@ -61,22 +61,16 @@ export function getResultNameFromMethod(method: string) {
   return `${type}Result`;
 }
 
-function verifyTypeExist(
-  file: SourceFile,
-  resultName: string,
-  cause?: unknown,
-): void {
+function doesTypeExist(file: SourceFile, resultName: string): boolean {
   // Usually we get something like `BrowsingContext.GetTreeResult`
   let typeExist = getTypeInNamespace(file, resultName);
 
   if (!typeExist) {
     // Maybe it was not inside an Namespace try on the module scope
-    typeExist = file.getTypeAliasOrThrow(resultName);
+    typeExist = file.getTypeAlias(resultName);
   }
 
-  if (!typeExist) {
-    throw new Error(`Expected type ${resultName} to exist`, {cause: cause});
-  }
+  return typeExist !== undefined;
 }
 
 export function getResultWithFallbacks(
@@ -87,26 +81,23 @@ export function getResultWithFallbacks(
 ) {
   let resultName = params.replace('Parameters', 'Result');
 
-  try {
-    try {
-      // Extensible exist, but does not give the correct type
-      // We need to infer from methods
-      if (params.includes('Extensible')) {
-        resultName = getResultNameFromMethod(method);
-      }
+  // Extensible exist, but does not give the correct type
+  // We need to infer from methods
+  if (params.includes('Extensible')) {
+    resultName = getResultNameFromMethod(method);
+  }
 
-      verifyTypeExist(file, resultName);
-    } catch (error) {
-      resultName = getResultNameFromMethod(method);
-      verifyTypeExist(file, resultName, error);
+  if (!doesTypeExist(file, resultName)) {
+    resultName = getResultNameFromMethod(method);
+    if (!doesTypeExist(file, resultName)) {
+      console.warn(
+        `Warning: could not find result type for ${method} (params: ${params}), defaulting to EmptyResult`,
+      );
+      // The EmptyResult is only available on the main spec
+      spec = MAIN_SPEC_PREFIX;
+      // Default to EmptyResult
+      resultName = `EmptyResult`;
     }
-  } catch (error) {
-    console.log(`No result type found`, error);
-
-    // The EmptyResult is only available on the main spec
-    spec = MAIN_SPEC_PREFIX;
-    // Default to EmptyResult
-    resultName = `EmptyResult`;
   }
 
   if (!resultName.endsWith('Result')) {
