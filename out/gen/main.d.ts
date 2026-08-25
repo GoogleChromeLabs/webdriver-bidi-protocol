@@ -42,11 +42,7 @@ export type Event = {
 } & EventData &
   Extensible;
 export type EventData =
-  | BrowsingContextEvent
-  | InputEvent
-  | LogEvent
-  | NetworkEvent
-  | ScriptEvent;
+  BrowsingContextEvent | InputEvent | LogEvent | NetworkEvent | ScriptEvent;
 export type Extensible = {
   [key: string]: any;
 };
@@ -271,8 +267,7 @@ export declare namespace Session {
 }
 export declare namespace Session {
   type UnsubscribeParameters =
-    | Session.UnsubscribeByAttributesRequest
-    | Session.UnsubscribeByIdRequest;
+    Session.UnsubscribeByAttributesRequest | Session.UnsubscribeByIdRequest;
 }
 export declare namespace Session {
   type UnsubscribeResult = EmptyResult;
@@ -418,8 +413,7 @@ export declare namespace Browser {
 }
 export declare namespace Browser {
   type DownloadBehavior =
-    | Browser.DownloadBehaviorAllowed
-    | Browser.DownloadBehaviorDenied;
+    Browser.DownloadBehaviorAllowed | Browser.DownloadBehaviorDenied;
 }
 export declare namespace Browser {
   type DownloadBehaviorAllowed = {
@@ -611,8 +605,7 @@ export declare namespace BrowsingContext {
 }
 export declare namespace BrowsingContext {
   type ClipRectangle =
-    | BrowsingContext.BoxClipRectangle
-    | BrowsingContext.ElementClipRectangle;
+    BrowsingContext.BoxClipRectangle | BrowsingContext.ElementClipRectangle;
 }
 export declare namespace BrowsingContext {
   type ElementClipRectangle = {
@@ -1672,8 +1665,7 @@ export declare namespace Network {
   type ContinueWithAuthParameters = {
     request: Network.Request;
   } & (
-    | Network.ContinueWithAuthCredentials
-    | Network.ContinueWithAuthNoCredentials
+    Network.ContinueWithAuthCredentials | Network.ContinueWithAuthNoCredentials
   );
 }
 export declare namespace Network {
@@ -1896,9 +1888,7 @@ export type ScriptResult =
   | Script.GetRealmsResult
   | Script.RemovePreloadScriptResult;
 export type ScriptEvent =
-  | Script.Message
-  | Script.RealmCreated
-  | Script.RealmDestroyed;
+  Script.Message | Script.RealmCreated | Script.RealmDestroyed;
 export declare namespace Script {
   type Channel = string;
 }
@@ -1917,8 +1907,7 @@ export declare namespace Script {
 }
 export declare namespace Script {
   type EvaluateResult =
-    | Script.EvaluateResultSuccess
-    | Script.EvaluateResultException;
+    Script.EvaluateResultSuccess | Script.EvaluateResultException;
 }
 export declare namespace Script {
   type EvaluateResultSuccess = {
@@ -2551,9 +2540,7 @@ export declare namespace Script {
   };
 }
 export type StorageCommand =
-  | Storage.DeleteCookies
-  | Storage.GetCookies
-  | Storage.SetCookie;
+  Storage.DeleteCookies | Storage.GetCookies | Storage.SetCookie;
 export type StorageResult =
   | Storage.DeleteCookiesResult
   | Storage.GetCookiesResult
@@ -2670,9 +2657,7 @@ export declare namespace Log {
 }
 export declare namespace Log {
   type Entry =
-    | Log.GenericLogEntry
-    | Log.ConsoleLogEntry
-    | Log.JavascriptLogEntry;
+    Log.GenericLogEntry | Log.ConsoleLogEntry | Log.JavascriptLogEntry;
 }
 export declare namespace Log {
   type BaseLogEntry = {
@@ -2707,9 +2692,7 @@ export declare namespace Log {
   };
 }
 export type InputCommand =
-  | Input.PerformActions
-  | Input.ReleaseActions
-  | Input.SetFiles;
+  Input.PerformActions | Input.ReleaseActions | Input.SetFiles;
 export type InputResult =
   | Input.PerformActionsResult
   | Input.ReleaseActionsResult
@@ -2759,9 +2742,7 @@ export declare namespace Input {
 }
 export declare namespace Input {
   type KeySourceAction =
-    | Input.PauseAction
-    | Input.KeyDownAction
-    | Input.KeyUpAction;
+    Input.PauseAction | Input.KeyDownAction | Input.KeyUpAction;
 }
 export declare namespace Input {
   type PointerSourceActions = {
@@ -2946,8 +2927,7 @@ export declare namespace Input {
 }
 export type WebExtensionCommand = WebExtension.Install | WebExtension.Uninstall;
 export type WebExtensionResult =
-  | WebExtension.InstallResult
-  | WebExtension.UninstallResult;
+  WebExtension.InstallResult | WebExtension.UninstallResult;
 export declare namespace WebExtension {
   type Extension = string;
 }
