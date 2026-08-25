@@ -27,5 +27,4 @@ type ExternalSpecEvent<T> = {
 } & T &
   Bidi.Extensible;
 export type Event =
-  | Bidi.Event
-  | ExternalSpecEvent<BidiBluetooth.BluetoothEvent>;
+  Bidi.Event | ExternalSpecEvent<BidiBluetooth.BluetoothEvent>;

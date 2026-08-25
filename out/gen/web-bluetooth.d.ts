@@ -247,8 +247,7 @@ export declare namespace Bluetooth {
   };
 }
 export type BluetoothEvent =
-  | Bluetooth.RequestDevicePromptUpdated
-  | Bluetooth.GattConnectionAttempted;
+  Bluetooth.RequestDevicePromptUpdated | Bluetooth.GattConnectionAttempted;
 export declare namespace Bluetooth {
   type RequestDevicePromptUpdated = {
     method: 'bluetooth.requestDevicePromptUpdated';
