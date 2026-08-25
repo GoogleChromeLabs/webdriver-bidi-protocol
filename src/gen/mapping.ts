@@ -120,9 +120,21 @@ export interface Commands {
     params: Bidi.BrowsingContext.ReloadParameters;
     returnType: Bidi.BrowsingContext.ReloadResult;
   };
+  'browsingContext.setBypassCSP': {
+    params: Bidi.BrowsingContext.SetBypassCspParameters;
+    returnType: Bidi.BrowsingContext.SetBypassCspResult;
+  };
   'browsingContext.setViewport': {
     params: Bidi.BrowsingContext.SetViewportParameters;
     returnType: Bidi.BrowsingContext.SetViewportResult;
+  };
+  'browsingContext.startScreencast': {
+    params: Bidi.BrowsingContext.StartScreencastParameters;
+    returnType: Bidi.BrowsingContext.StartScreencastResult;
+  };
+  'browsingContext.stopScreencast': {
+    params: Bidi.BrowsingContext.StopScreencastParameters;
+    returnType: Bidi.BrowsingContext.StopScreencastResult;
   };
   'browsingContext.traverseHistory': {
     params: Bidi.BrowsingContext.TraverseHistoryParameters;
@@ -139,6 +151,10 @@ export interface Commands {
   'emulation.setLocaleOverride': {
     params: Bidi.Emulation.SetLocaleOverrideParameters;
     returnType: Bidi.Emulation.SetLocaleOverrideResult;
+  };
+  'emulation.setMediaFeaturesOverride': {
+    params: Bidi.Emulation.SetMediaFeaturesOverrideParameters;
+    returnType: Bidi.Emulation.SetMediaFeaturesOverrideResult;
   };
   'emulation.setNetworkConditions': {
     params: Bidi.Emulation.SetNetworkConditionsParameters;
@@ -171,6 +187,10 @@ export interface Commands {
   'emulation.setUserAgentOverride': {
     params: Bidi.Emulation.SetUserAgentOverrideParameters;
     returnType: Bidi.Emulation.SetUserAgentOverrideResult;
+  };
+  'emulation.setViewportMetaOverride': {
+    params: Bidi.Emulation.SetViewportMetaOverrideParameters;
+    returnType: Bidi.Emulation.SetViewportMetaOverrideResult;
   };
   'input.performActions': {
     params: Bidi.Input.PerformActionsParameters;
