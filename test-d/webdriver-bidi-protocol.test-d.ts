@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {Event, Command, Commands} from '..';
+import {Event, Command, Commands, Permissions} from '..';
 
 function sendCommand(command: Command) {}
 function handleEvent(event: Event) {}
@@ -59,4 +59,12 @@ handleEvent({
     prompt: '',
     devices: [],
   },
+});
+
+sendCommandMultipleArgs('permissions.setPermission', {
+  descriptor: {
+    name: 'geolocation',
+  },
+  state: Permissions.PermissionState.Granted,
+  origin: 'https://example.com',
 });

@@ -54,38 +54,39 @@ export type JsInt = number;
  * Must be between `0` and `9007199254740991`, inclusive.
  */
 export type JsUint = number;
-export declare const enum ErrorCode {
-  InvalidArgument = 'invalid argument',
-  InvalidSelector = 'invalid selector',
-  InvalidSessionId = 'invalid session id',
-  InvalidWebExtension = 'invalid web extension',
-  MoveTargetOutOfBounds = 'move target out of bounds',
-  NoSuchAlert = 'no such alert',
-  NoSuchNetworkCollector = 'no such network collector',
-  NoSuchElement = 'no such element',
-  NoSuchFrame = 'no such frame',
-  NoSuchHandle = 'no such handle',
-  NoSuchHistoryEntry = 'no such history entry',
-  NoSuchIntercept = 'no such intercept',
-  NoSuchNetworkData = 'no such network data',
-  NoSuchNode = 'no such node',
-  NoSuchRequest = 'no such request',
-  NoSuchScreencast = 'no such screencast',
-  NoSuchScript = 'no such script',
-  NoSuchStoragePartition = 'no such storage partition',
-  NoSuchUserContext = 'no such user context',
-  NoSuchWebExtension = 'no such web extension',
-  SessionNotCreated = 'session not created',
-  UnableToCaptureScreen = 'unable to capture screen',
-  UnableToCloseBrowser = 'unable to close browser',
-  UnableToSetCookie = 'unable to set cookie',
-  UnableToSetFileInput = 'unable to set file input',
-  UnavailableNetworkData = 'unavailable network data',
-  UnderspecifiedStoragePartition = 'underspecified storage partition',
-  UnknownCommand = 'unknown command',
-  UnknownError = 'unknown error',
-  UnsupportedOperation = 'unsupported operation',
-}
+export declare const ErrorCode: {
+  readonly InvalidArgument: 'invalid argument';
+  readonly InvalidSelector: 'invalid selector';
+  readonly InvalidSessionId: 'invalid session id';
+  readonly InvalidWebExtension: 'invalid web extension';
+  readonly MoveTargetOutOfBounds: 'move target out of bounds';
+  readonly NoSuchAlert: 'no such alert';
+  readonly NoSuchNetworkCollector: 'no such network collector';
+  readonly NoSuchElement: 'no such element';
+  readonly NoSuchFrame: 'no such frame';
+  readonly NoSuchHandle: 'no such handle';
+  readonly NoSuchHistoryEntry: 'no such history entry';
+  readonly NoSuchIntercept: 'no such intercept';
+  readonly NoSuchNetworkData: 'no such network data';
+  readonly NoSuchNode: 'no such node';
+  readonly NoSuchRequest: 'no such request';
+  readonly NoSuchScreencast: 'no such screencast';
+  readonly NoSuchScript: 'no such script';
+  readonly NoSuchStoragePartition: 'no such storage partition';
+  readonly NoSuchUserContext: 'no such user context';
+  readonly NoSuchWebExtension: 'no such web extension';
+  readonly SessionNotCreated: 'session not created';
+  readonly UnableToCaptureScreen: 'unable to capture screen';
+  readonly UnableToCloseBrowser: 'unable to close browser';
+  readonly UnableToSetCookie: 'unable to set cookie';
+  readonly UnableToSetFileInput: 'unable to set file input';
+  readonly UnavailableNetworkData: 'unavailable network data';
+  readonly UnderspecifiedStoragePartition: 'underspecified storage partition';
+  readonly UnknownCommand: 'unknown command';
+  readonly UnknownError: 'unknown error';
+  readonly UnsupportedOperation: 'unsupported operation';
+};
+export type ErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode];
 export type SessionCommand =
   | Session.End
   | Session.New
@@ -172,11 +173,13 @@ export declare namespace Session {
   };
 }
 export declare namespace Session {
-  const enum UserPromptHandlerType {
-    Accept = 'accept',
-    Dismiss = 'dismiss',
-    Ignore = 'ignore',
-  }
+  const UserPromptHandlerType: {
+    readonly Accept: 'accept';
+    readonly Dismiss: 'dismiss';
+    readonly Ignore: 'ignore';
+  };
+  type UserPromptHandlerType =
+    (typeof UserPromptHandlerType)[keyof typeof UserPromptHandlerType];
 }
 export declare namespace Session {
   type Subscription = string;
@@ -559,19 +562,21 @@ export declare namespace BrowsingContext {
   type NavigationInfo = BrowsingContext.BaseNavigationInfo;
 }
 export declare namespace BrowsingContext {
-  const enum ReadinessState {
-    None = 'none',
-    Interactive = 'interactive',
-    Complete = 'complete',
-  }
+  const ReadinessState: {
+    readonly None: 'none';
+    readonly Interactive: 'interactive';
+    readonly Complete: 'complete';
+  };
+  type ReadinessState = (typeof ReadinessState)[keyof typeof ReadinessState];
 }
 export declare namespace BrowsingContext {
-  const enum UserPromptType {
-    Alert = 'alert',
-    Beforeunload = 'beforeunload',
-    Confirm = 'confirm',
-    Prompt = 'prompt',
-  }
+  const UserPromptType: {
+    readonly Alert: 'alert';
+    readonly Beforeunload: 'beforeunload';
+    readonly Confirm: 'confirm';
+    readonly Prompt: 'prompt';
+  };
+  type UserPromptType = (typeof UserPromptType)[keyof typeof UserPromptType];
 }
 export declare namespace BrowsingContext {
   type Activate = {
@@ -662,10 +667,11 @@ export declare namespace BrowsingContext {
   };
 }
 export declare namespace BrowsingContext {
-  const enum CreateType {
-    Tab = 'tab',
-    Window = 'window',
-  }
+  const CreateType: {
+    readonly Tab: 'tab';
+    readonly Window: 'window';
+  };
+  type CreateType = (typeof CreateType)[keyof typeof CreateType];
 }
 export declare namespace BrowsingContext {
   type CreateParameters = {
@@ -1144,10 +1150,12 @@ export declare namespace Emulation {
   };
 }
 export declare namespace Emulation {
-  const enum ForcedColorsModeTheme {
-    Light = 'light',
-    Dark = 'dark',
-  }
+  const ForcedColorsModeTheme: {
+    readonly Light: 'light';
+    readonly Dark: 'dark';
+  };
+  type ForcedColorsModeTheme =
+    (typeof ForcedColorsModeTheme)[keyof typeof ForcedColorsModeTheme];
 }
 export declare namespace Emulation {
   type SetForcedColorsModeThemeOverrideResult = EmptyResult;
@@ -1259,41 +1267,41 @@ export declare namespace Emulation {
 }
 export declare namespace Emulation {
   type MediaFeatures = {
-    ['any-hover']?: 'none' | 'hover' | null;
-    ['any-pointer']?: 'none' | 'coarse' | 'fine' | null;
-    ['color']?: JsUint | null;
-    ['color-gamut']?: 'srgb' | 'p3' | 'rec2020' | null;
-    ['color-index']?: JsUint | null;
-    ['display-mode']?:
+    'any-hover'?: 'none' | 'hover' | null;
+    'any-pointer'?: 'none' | 'coarse' | 'fine' | null;
+    color?: JsUint | null;
+    'color-gamut'?: 'srgb' | 'p3' | 'rec2020' | null;
+    'color-index'?: JsUint | null;
+    'display-mode'?:
       | 'fullscreen'
       | 'standalone'
       | 'minimal-ui'
       | 'browser'
       | 'picture-in-picture'
       | null;
-    ['dynamic-range']?: 'standard' | 'high' | null;
-    ['environment-blending']?: 'opaque' | 'additive' | 'subtractive' | null;
-    ['forced-colors']?: 'none' | 'active' | null;
-    ['grid']?: 0 | 1 | null;
-    ['horizontal-viewport-segments']?: JsUint | null;
-    ['hover']?: 'none' | 'hover' | null;
-    ['inverted-colors']?: 'none' | 'inverted' | null;
-    ['monochrome']?: JsUint | null;
-    ['nav-controls']?: 'none' | 'back' | null;
-    ['overflow-block']?: 'none' | 'scroll' | 'optional-paged' | 'paged' | null;
-    ['overflow-inline']?: 'none' | 'scroll' | null;
-    ['pointer']?: 'none' | 'coarse' | 'fine' | null;
-    ['prefers-color-scheme']?: 'light' | 'dark' | null;
-    ['prefers-contrast']?: 'no-preference' | 'more' | 'less' | 'custom' | null;
-    ['prefers-reduced-data']?: 'no-preference' | 'reduce' | null;
-    ['prefers-reduced-motion']?: 'no-preference' | 'reduce' | null;
-    ['prefers-reduced-transparency']?: 'no-preference' | 'reduce' | null;
-    ['scan']?: 'interlace' | 'progressive' | null;
-    ['scripting']?: 'none' | 'initial-only' | 'enabled' | null;
-    ['update']?: 'none' | 'slow' | 'fast' | null;
-    ['vertical-viewport-segments']?: JsUint | null;
-    ['video-color-gamut']?: 'srgb' | 'p3' | 'rec2020' | null;
-    ['video-dynamic-range']?: 'standard' | 'high' | null;
+    'dynamic-range'?: 'standard' | 'high' | null;
+    'environment-blending'?: 'opaque' | 'additive' | 'subtractive' | null;
+    'forced-colors'?: 'none' | 'active' | null;
+    grid?: 0 | 1 | null;
+    'horizontal-viewport-segments'?: JsUint | null;
+    hover?: 'none' | 'hover' | null;
+    'inverted-colors'?: 'none' | 'inverted' | null;
+    monochrome?: JsUint | null;
+    'nav-controls'?: 'none' | 'back' | null;
+    'overflow-block'?: 'none' | 'scroll' | 'optional-paged' | 'paged' | null;
+    'overflow-inline'?: 'none' | 'scroll' | null;
+    pointer?: 'none' | 'coarse' | 'fine' | null;
+    'prefers-color-scheme'?: 'light' | 'dark' | null;
+    'prefers-contrast'?: 'no-preference' | 'more' | 'less' | 'custom' | null;
+    'prefers-reduced-data'?: 'no-preference' | 'reduce' | null;
+    'prefers-reduced-motion'?: 'no-preference' | 'reduce' | null;
+    'prefers-reduced-transparency'?: 'no-preference' | 'reduce' | null;
+    scan?: 'interlace' | 'progressive' | null;
+    scripting?: 'none' | 'initial-only' | 'enabled' | null;
+    update?: 'none' | 'slow' | 'fast' | null;
+    'vertical-viewport-segments'?: JsUint | null;
+    'video-color-gamut'?: 'srgb' | 'p3' | 'rec2020' | null;
+    'video-dynamic-range'?: 'standard' | 'high' | null;
   };
 }
 export declare namespace Emulation {
@@ -1358,17 +1366,22 @@ export declare namespace Emulation {
   };
 }
 export declare namespace Emulation {
-  const enum ScreenOrientationNatural {
-    Portrait = 'portrait',
-    Landscape = 'landscape',
-  }
+  const ScreenOrientationNatural: {
+    readonly Portrait: 'portrait';
+    readonly Landscape: 'landscape';
+  };
+  type ScreenOrientationNatural =
+    (typeof ScreenOrientationNatural)[keyof typeof ScreenOrientationNatural];
 }
 export declare namespace Emulation {
+  const ScreenOrientationType: {
+    readonly PortraitPrimary: 'portrait-primary';
+    readonly PortraitSecondary: 'portrait-secondary';
+    readonly LandscapePrimary: 'landscape-primary';
+    readonly LandscapeSecondary: 'landscape-secondary';
+  };
   type ScreenOrientationType =
-    | 'portrait-primary'
-    | 'portrait-secondary'
-    | 'landscape-primary'
-    | 'landscape-secondary';
+    (typeof ScreenOrientationType)[keyof typeof ScreenOrientationType];
 }
 export declare namespace Emulation {
   type ScreenOrientation = {
@@ -1584,17 +1597,16 @@ export declare namespace Network {
   type Collector = string;
 }
 export declare namespace Network {
-  const enum CollectorType {
-    Blob = 'blob',
-  }
+  type CollectorType = 'blob';
 }
 export declare namespace Network {
-  const enum SameSite {
-    Strict = 'strict',
-    Lax = 'lax',
-    None = 'none',
-    Default = 'default',
-  }
+  const SameSite: {
+    readonly Strict: 'strict';
+    readonly Lax: 'lax';
+    readonly None: 'none';
+    readonly Default: 'default';
+  };
+  type SameSite = (typeof SameSite)[keyof typeof SameSite];
 }
 export declare namespace Network {
   type Cookie = {
@@ -1616,10 +1628,11 @@ export declare namespace Network {
   };
 }
 export declare namespace Network {
-  const enum DataType {
-    Request = 'request',
-    Response = 'response',
-  }
+  const DataType: {
+    readonly Request: 'request';
+    readonly Response: 'response';
+  };
+  type DataType = (typeof DataType)[keyof typeof DataType];
 }
 export declare namespace Network {
   type FetchTimingInfo = {
@@ -1769,11 +1782,12 @@ export declare namespace Network {
   };
 }
 export declare namespace Network {
-  const enum InterceptPhase {
-    BeforeRequestSent = 'beforeRequestSent',
-    ResponseStarted = 'responseStarted',
-    AuthRequired = 'authRequired',
-  }
+  const InterceptPhase: {
+    readonly BeforeRequestSent: 'beforeRequestSent';
+    readonly ResponseStarted: 'responseStarted';
+    readonly AuthRequired: 'authRequired';
+  };
+  type InterceptPhase = (typeof InterceptPhase)[keyof typeof InterceptPhase];
 }
 export declare namespace Network {
   type AddInterceptResult = {
@@ -2277,15 +2291,17 @@ export declare namespace Script {
   };
 }
 export declare namespace Script {
-  type RealmType =
-    | 'window'
-    | 'dedicated-worker'
-    | 'shared-worker'
-    | 'service-worker'
-    | 'worker'
-    | 'paint-worklet'
-    | 'audio-worklet'
-    | 'worklet';
+  const RealmType: {
+    readonly Window: 'window';
+    readonly DedicatedWorker: 'dedicated-worker';
+    readonly SharedWorker: 'shared-worker';
+    readonly ServiceWorker: 'service-worker';
+    readonly Worker: 'worker';
+    readonly PaintWorklet: 'paint-worklet';
+    readonly AudioWorklet: 'audio-worklet';
+    readonly Worklet: 'worklet';
+  };
+  type RealmType = (typeof RealmType)[keyof typeof RealmType];
 }
 export declare namespace Script {
   type RemoteReference = Script.SharedReference | Script.RemoteObjectReference;
@@ -2502,10 +2518,11 @@ export declare namespace Script {
   };
 }
 export declare namespace Script {
-  const enum ResultOwnership {
-    Root = 'root',
-    None = 'none',
-  }
+  const ResultOwnership: {
+    readonly Root: 'root';
+    readonly None: 'none';
+  };
+  type ResultOwnership = (typeof ResultOwnership)[keyof typeof ResultOwnership];
 }
 export declare namespace Script {
   type SerializationOptions = {
@@ -2811,12 +2828,13 @@ export declare namespace Storage {
 }
 export type LogEvent = Log.EntryAdded;
 export declare namespace Log {
-  const enum Level {
-    Debug = 'debug',
-    Info = 'info',
-    Warn = 'warn',
-    Error = 'error',
-  }
+  const Level: {
+    readonly Debug: 'debug';
+    readonly Info: 'info';
+    readonly Warn: 'warn';
+    readonly Error: 'error';
+  };
+  type Level = (typeof Level)[keyof typeof Level];
 }
 export declare namespace Log {
   type Entry =
@@ -2916,11 +2934,12 @@ export declare namespace Input {
   };
 }
 export declare namespace Input {
-  const enum PointerType {
-    Mouse = 'mouse',
-    Pen = 'pen',
-    Touch = 'touch',
-  }
+  const PointerType: {
+    readonly Mouse: 'mouse';
+    readonly Pen: 'pen';
+    readonly Touch: 'touch';
+  };
+  type PointerType = (typeof PointerType)[keyof typeof PointerType];
 }
 export declare namespace Input {
   type PointerParameters = {
