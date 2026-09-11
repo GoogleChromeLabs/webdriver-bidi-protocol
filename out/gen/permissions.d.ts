@@ -5,11 +5,12 @@ export declare namespace Permissions {
   };
 }
 export declare namespace Permissions {
-  const enum PermissionState {
-    Granted = 'granted',
-    Denied = 'denied',
-    Prompt = 'prompt',
-  }
+  const PermissionState: {
+    readonly Granted: 'granted';
+    readonly Denied: 'denied';
+    readonly Prompt: 'prompt';
+  };
+  type PermissionState = (typeof PermissionState)[keyof typeof PermissionState];
 }
 export declare namespace Permissions {
   type SetPermission = {

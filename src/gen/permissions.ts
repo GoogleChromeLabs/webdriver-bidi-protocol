@@ -5,11 +5,13 @@ export namespace Permissions {
   };
 }
 export namespace Permissions {
-  export const enum PermissionState {
-    Granted = 'granted',
-    Denied = 'denied',
-    Prompt = 'prompt',
-  }
+  export const PermissionState = {
+    Granted: 'granted',
+    Denied: 'denied',
+    Prompt: 'prompt',
+  } as const;
+  export type PermissionState =
+    (typeof PermissionState)[keyof typeof PermissionState];
 }
 export namespace Permissions {
   export type SetPermission = {
