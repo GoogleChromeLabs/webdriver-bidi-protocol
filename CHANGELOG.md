@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.4.3...webdriver-bidi-protocol-v1.0.0) (2026-09-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* update cddlconv to 0.1.10 ([#356](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/356))
+
+### Bug Fixes
+
+* update cddlconv to 0.1.10 ([#356](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/356)) ([b8cc6a5](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/b8cc6a5fbffeb5dbbcba22c3f630aed854d0cb41))
+
 ## [0.4.3](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.4.2...webdriver-bidi-protocol-v0.4.3) (2026-08-26)
 
 
