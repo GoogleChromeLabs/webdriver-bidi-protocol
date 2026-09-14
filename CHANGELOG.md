@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v1.0.0...webdriver-bidi-protocol-v1.0.1) (2026-09-14)
+
+
+### Bug Fixes
+
+* migrate to Trusted Publishing with provenance attestation ([#359](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/issues/359)) ([97bd58d](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/commit/97bd58d2a558781e76938330ae44808841357d8c))
+
 ## [1.0.0](https://github.com/GoogleChromeLabs/webdriver-bidi-protocol/compare/webdriver-bidi-protocol-v0.4.3...webdriver-bidi-protocol-v1.0.0) (2026-09-14)
 
 
