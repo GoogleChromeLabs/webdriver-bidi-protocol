@@ -175,6 +175,10 @@ export interface Commands {
     params: Bidi.Emulation.SetScrollbarTypeOverrideParameters;
     returnType: Bidi.Emulation.SetScrollbarTypeOverrideResult;
   };
+  'emulation.setTextLayoutModeOverride': {
+    params: Bidi.Emulation.SetTextLayoutModeOverrideParameters;
+    returnType: Bidi.Emulation.SetTextLayoutModeOverrideResult;
+  };
   'emulation.setTimezoneOverride': {
     params: Bidi.Emulation.SetTimezoneOverrideParameters;
     returnType: Bidi.Emulation.SetTimezoneOverrideResult;
