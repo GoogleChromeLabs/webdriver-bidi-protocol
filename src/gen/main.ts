@@ -611,6 +611,7 @@ export namespace BrowsingContext {
     origin?: 'viewport' | 'document';
     format?: BrowsingContext.ImageFormat;
     clip?: BrowsingContext.ClipRectangle;
+    imageSize?: BrowsingContext.ImageSize;
   };
 }
 export namespace BrowsingContext {
@@ -620,6 +621,18 @@ export namespace BrowsingContext {
      * Must be between `0` and `1`, inclusive.
      */
     quality?: number;
+  };
+}
+export namespace BrowsingContext {
+  export type ImageSize = {
+    /**
+     * Must be greater than or equal to `1`.
+     */
+    maxWidth?: JsUint;
+    /**
+     * Must be greater than or equal to `1`.
+     */
+    maxHeight?: JsUint;
   };
 }
 export namespace BrowsingContext {
@@ -917,6 +930,7 @@ export namespace BrowsingContext {
 export namespace BrowsingContext {
   export type StartScreencastParameters = {
     context: BrowsingContext.BrowsingContext;
+    destinationFolder?: string;
     mimeType?: string;
     video?: BrowsingContext.MediaTrackConstraints;
     /**
@@ -1118,6 +1132,7 @@ export type EmulationCommand =
   | Emulation.SetScreenSettingsOverride
   | Emulation.SetScriptingEnabled
   | Emulation.SetScrollbarTypeOverride
+  | Emulation.SetTextLayoutModeOverride
   | Emulation.SetTimezoneOverride
   | Emulation.SetTouchOverride
   | Emulation.SetUserAgentOverride
@@ -1130,6 +1145,7 @@ export type EmulationResult =
   | Emulation.SetScreenOrientationOverrideResult
   | Emulation.SetScriptingEnabledResult
   | Emulation.SetScrollbarTypeOverrideResult
+  | Emulation.SetTextLayoutModeOverrideResult
   | Emulation.SetTimezoneOverrideResult
   | Emulation.SetTouchOverrideResult
   | Emulation.SetUserAgentOverrideResult
@@ -1475,6 +1491,28 @@ export namespace Emulation {
 }
 export namespace Emulation {
   export type SetScrollbarTypeOverrideResult = EmptyResult;
+}
+export namespace Emulation {
+  export type SetTextLayoutModeOverride = {
+    method: 'emulation.setTextLayoutModeOverride';
+    params: Emulation.SetTextLayoutModeOverrideParameters;
+  };
+}
+export namespace Emulation {
+  export type SetTextLayoutModeOverrideParameters = {
+    textLayoutMode: Emulation.TextLayoutMode | null;
+    contexts?: [
+      BrowsingContext.BrowsingContext,
+      ...BrowsingContext.BrowsingContext[],
+    ];
+    userContexts?: [Browser.UserContext, ...Browser.UserContext[]];
+  };
+}
+export namespace Emulation {
+  export type TextLayoutMode = 'mobile';
+}
+export namespace Emulation {
+  export type SetTextLayoutModeOverrideResult = EmptyResult;
 }
 export namespace Emulation {
   export type SetTimezoneOverride = {
